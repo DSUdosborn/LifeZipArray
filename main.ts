@@ -58,12 +58,12 @@ function show() {
 function loadEdges(){
     // Set the outside edges to dead 
     for ( let colX = 0; colX < calcSize; colX++){
-        setState(state,colX,0, getState(state,colX,calcSize-1))
-        setState(state,colX,calcSize-1, getState(state,colX,0,))
+        setState(state,colX,0, getState(state,colX,displaySize))
+        setState(state,colX,calcSize-1, getState(state,colX,1,))
     }
     for ( let rowY = 0; rowY < calcSize; rowY++){
-        setState(state,0,rowY, getState(state,calcSize -1,rowY))
-        setState(state,calcSize-1,rowY, getState(state,0,rowY))
+        setState(state,0,rowY, getState(state,displaySize,rowY))
+        setState(state,calcSize -1,rowY, getState(state,1,rowY))
     }
 }
 
