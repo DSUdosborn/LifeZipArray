@@ -165,7 +165,7 @@ let ledColors = [ZipLedColors.Red,ZipLedColors.Orange,ZipLedColors.Yellow,ZipLed
 let min = 0
 let max = 7
 let tileDisplay = Kitronik_Zip_Tile.createZIPTileDisplay(1, 1, Kitronik_Zip_Tile.UBitLocations.Visible)
-tileDisplay.setBrightness(50)
+tileDisplay.setBrightness(32)
 
 let displaySize = 8
 let calcSize = displaySize + 2
