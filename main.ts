@@ -70,6 +70,14 @@ function reset() {
     }
 }
 
+function showLogo() {
+     for (let x = 0; x < calcSize; x++) {
+        for (let y = 0; y < calcSize; y++) {
+            setState(state, x, y, getState(logostate,x,y));
+        }
+    }   
+}
+
 //Show the lifeChart based on the state
 function show() {
     tileDisplay.clear()
@@ -175,5 +183,7 @@ let priorstate: boolean[] = [];
 let blinkstate: boolean[] = [];
 let logostate: boolean[] = [];
 setup()
+showLogo()
+basic.pause(3000)
 reset()
 show()
