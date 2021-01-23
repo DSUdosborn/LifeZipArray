@@ -75,7 +75,8 @@ function showLogo() {
         for (let y = 0; y < calcSize; y++) {
             setState(state, x, y, getState(logostate,x,y));
         }
-    }   
+    } 
+    show()  
 }
 
 //Show the lifeChart based on the state
