@@ -65,7 +65,7 @@ input.onButtonPressed(Button.AB, function () {
     showLogo()	
     basic.pause(1000)
     for (let cycle = 1; cycle < 6; cycle++){
-        let delay = 100 * cycle
+        let delay = 600 / cycle
         for ( let gen = 1; gen < 24; gen ++){
             gameOfLife();
             show();
