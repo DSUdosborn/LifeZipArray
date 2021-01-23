@@ -20,6 +20,19 @@ function setState(arr: boolean[], x: number, y: number, value: boolean): void {
     arr[x * calcSize + y] = value;
 }
 
+// compare array to empty
+function isDead () {
+    return state.every((val, index) => val === deadstate[index])
+}
+// compare array to prior
+function isSame () {
+    return state.every((val, index) => val === priorstate[index])
+}
+// compare array to blink
+function isLogo () {
+    return state.every((val, index) => val === blinkstate[index])
+}
+
 
 //Use button A for the next iteration of game of life
 input.onButtonPressed(Button.A, () => {
