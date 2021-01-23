@@ -10,6 +10,7 @@ function setup() {
     deadstate = state.slice()
     priorstate = state.slice()
     blinkstate = state.slice()
+
 }
 
 //get & set on any array
@@ -139,7 +140,9 @@ function gameOfLife() {
             }
         }
     }
-    //Update the state
+    //Update the state maps 
+    priorstate = state.slice()
+    blinkstate = priorstate.slice()
     state = result;
 }
 
@@ -153,6 +156,7 @@ let state: boolean[] = [];
 let deadstate: boolean[] = [];
 let priorstate: boolean[] = [];
 let blinkstate: boolean[] = [];
+let logostate: boolean[] = [];
 setup()
 
 reset()
