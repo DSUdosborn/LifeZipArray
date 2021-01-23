@@ -61,20 +61,17 @@ input.onButtonPressed(Button.B, () => {
     show();
 })
 
-input.onGesture(Gesture.Shake, function () {	
-    if (shakeEnabled) {
-        basic.pause(1000)
-        shakeEnabled = false
-        for (let cycle = 1; cycle > 6; cycle++){
-            let delay = 100 * cycle
-            for ( let gen = 1; gen < 24; gen ++){
-                gameOfLife();
-                show();
-                basic.pause(delay)
-            }
+input.onButtonPressed(Button.AB, function () {
+    showLogo()	
+    basic.pause(1000)
+    for (let cycle = 1; cycle > 6; cycle++){
+        let delay = 100 * cycle
+        for ( let gen = 1; gen < 24; gen ++){
+            gameOfLife();
+            show();
+            basic.pause(delay)
         }
-
-    } 
+    }
 })
 
 //Generate random initial state.
@@ -201,12 +198,7 @@ let blinkstate: boolean[] = [];
 let logostate: boolean[] = [];
 let shakeEnabled: boolean = false
 setup()
-showLogo()
-shakeEnabled = true
-let now = input.runningTime()
-while( input.runningTime() < now + 1500) {
-    max = max
-}
-shakeEnabled = false
+
+
 reset()
 show()
