@@ -61,7 +61,7 @@ function show() {
     for (let x = 1; x <= displaySize; x++) {
         for (let y = 1; y <= displaySize; y++) {
             if (getState(state, x, y)){
-                tileDisplay.setMatrixColor(x-1, y-1, Kitronik_Zip_Tile.colors(ZipLedColors.Red))
+                tileDisplay.setMatrixColor(x-1, y-1, Kitronik_Zip_Tile.colors(ZipLedColors.Blue))
             }
         }
     }
