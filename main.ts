@@ -203,7 +203,10 @@ let shakeEnabled: boolean = false
 setup()
 showLogo()
 shakeEnabled = true
-basic.pause(15000)
+let now = input.runningTime()
+while( input.runningTime() < now + 1500) {
+    max = max
+}
 shakeEnabled = false
 reset()
 show()
