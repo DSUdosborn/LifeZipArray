@@ -66,7 +66,7 @@ input.onButtonPressed(Button.AB, function () {
     basic.pause(1000)
     for (let cycle = 1; cycle < 6; cycle++){
         let delay = 600 / cycle
-        for ( let gen = 1; gen < 24; gen ++){
+        for ( let gen = 1; gen < 25; gen ++){
             gameOfLife();
             show();
             basic.pause(delay)
