@@ -10,7 +10,17 @@ function setup() {
     deadstate = state.slice()
     priorstate = state.slice()
     blinkstate = state.slice()
-
+    logostate = [false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,true,true,true,true,true,true,true,true,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,true,true,true,true,true,true,true,true,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,true,true,true,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,true,true,true,false,false,
+                    false,false,false,false,false,false,false,false,false,false                    
+                    ]
 }
 
 //get & set on any array
@@ -34,6 +44,10 @@ function isLogo () {
     return state.every((val, index) => val === blinkstate[index])
 }
 
+// Random integer for ledColor array offset 
+function randomInteger() {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 //Use button A for the next iteration of game of life
 input.onButtonPressed(Button.A, () => {
@@ -61,8 +75,8 @@ function show() {
     tileDisplay.clear()
     for (let x = 1; x <= displaySize; x++) {
         for (let y = 1; y <= displaySize; y++) {
-            if (getState(state, x, y)){
-                tileDisplay.setMatrixColor(x-1, y-1, Kitronik_Zip_Tile.colors(ZipLedColors.Blue))
+            if (getState(state, x, y)){               
+                tileDisplay.setMatrixColor(x-1, y-1, Kitronik_Zip_Tile.colors(ledColors[randomInteger()]))
             }
         }
     }
@@ -146,7 +160,10 @@ function gameOfLife() {
     state = result;
 }
 
-
+let ledColors = [ZipLedColors.Red,ZipLedColors.Orange,ZipLedColors.Yellow,ZipLedColors.Green,ZipLedColors.Blue,
+                    ZipLedColors.Indigo,ZipLedColors.Violet,ZipLedColors.Purple,ZipLedColors.Black,ZipLedColors.White]
+let min = 0
+let max = 7
 let tileDisplay = Kitronik_Zip_Tile.createZIPTileDisplay(1, 1, Kitronik_Zip_Tile.UBitLocations.Visible)
 tileDisplay.setBrightness(50)
 
@@ -158,6 +175,5 @@ let priorstate: boolean[] = [];
 let blinkstate: boolean[] = [];
 let logostate: boolean[] = [];
 setup()
-
 reset()
 show()
