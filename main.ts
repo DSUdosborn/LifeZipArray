@@ -1,21 +1,23 @@
-
+function setup() {
 //State holds the information about pixel is live or dead
 //false means dead, true means live.
-let state = [false, false, false, false, false, false, false, false,
-    false, false, false, false, false, false, false, false,
-    false, false, false, false, false, false, false, false,
-    false, false, false, false, false, false, false, false,
-    false, false, false, false, false, false, false, false,
-    false, false, false, false, false, false, false, false,
-    false, false, false, false, false, false, false, false,
-    false, false, false, false, false, false, false, false]
+    for (let x= 0; x < displaySize + 1; x++){
+        for (let y= 0; y< displaySize + 1; y++){
+            state.push(false)
+        }
+    }
+
+    deadstate = state.slice()
+    priorstate = state.slice()
+    blinkstate = state.slice()
+}
 
 //get & set on any array
 function getState(arr: boolean[], x: number, y: number): boolean {
-    return arr[x * 8 + y];
+    return arr[x * calcSize + y];
 }
 function setState(arr: boolean[], x: number, y: number, value: boolean): void {
-    arr[x * 8 + y] = value;
+    arr[x * calcSize + y] = value;
 }
 
 
@@ -33,8 +35,8 @@ input.onButtonPressed(Button.B, () => {
 
 //Generate random initial state.
 function reset() {
-    for (let x = 0; x < 8; x++) {
-        for (let y = 0; y < 8; y++) {
+    for (let x = 0; x < calcSize; x++) {
+        for (let y = 0; y < calcSize; y++) {
             setState(state, x, y, Math.randomBoolean());
         }
     }
@@ -43,14 +45,26 @@ function reset() {
 //Show the lifeChart based on the state
 function show() {
     tileDisplay.clear()
-    for (let x = 0; x < 8; x++) {
-        for (let y = 0; y < 8; y++) {
+    for (let x = 1; x <= displaySize; x++) {
+        for (let y = 1; y <= displaySize; y++) {
             if (getState(state, x, y)){
-                tileDisplay.setMatrixColor(x, y, Kitronik_Zip_Tile.colors(ZipLedColors.Red))
+                tileDisplay.setMatrixColor(x-1, y-1, Kitronik_Zip_Tile.colors(ZipLedColors.Red))
             }
         }
     }
     tileDisplay.show()
+}
+
+function loadEdges(){
+    // Set the outside edges to dead 
+    for ( let colX = 0; colX < calcSize; colX++){
+        setState(state,colX,0,false)
+        setState(state,colX,calcSize-1,false)
+    }
+    for ( let rowY = 0; rowY < calcSize; rowY++){
+        setState(state,0,rowY,false)
+        setState(state,calcSize-1,rowY, false)
+    }
 }
 
 //Core function
@@ -58,16 +72,18 @@ function gameOfLife() {
     let result: boolean[] = [];
     let count = 0;
 
-    for (let x = 0; x < 8; x++) {
-        for (let y = 0; y < 8; y++) {
+    loadEdges()   
+
+    for (let x = 0; x < calcSize; x++) {
+        for (let y = 0; y < calcSize; y++) {
             count = 0;
 
             //Count the live cells in the next row
-            if ((x + 1) < 8) {
+            if ((x + 1) < calcSize) {
                 if (getState(state, x + 1, y)) {
                     count++;
                 }
-                if ((y + 1 < 8) && getState(state, x + 1, y + 1)) {
+                if ((y + 1 < calcSize) && getState(state, x + 1, y + 1)) {
                     count++;
                 }
                 if ((y - 1 >= 0) && getState(state, x + 1, y - 1)) {
@@ -80,7 +96,7 @@ function gameOfLife() {
                 if (getState(state, x - 1, y)) {
                     count++;
                 }
-                if ((y + 1 < 8) && getState(state, x - 1, y + 1)) {
+                if ((y + 1 < calcSize) && getState(state, x - 1, y + 1)) {
                     count++;
                 }
                 if ((y - 1 >= 0) && getState(state, x - 1, y - 1)) {
@@ -88,11 +104,11 @@ function gameOfLife() {
                 }
             }
 
-            //Count the live cells in the current row exlcuding the current position.
+            //Count the live cells in the current row excluding the current position.
             if ((y - 1 >= 0) && getState(state, x, y - 1)) {
                 count++;
             }
-            if ((y + 1 < 8) && getState(state, x, y + 1)) {
+            if ((y + 1 < calcSize) && getState(state, x, y + 1)) {
                 count++;
             }
 
@@ -117,6 +133,14 @@ function gameOfLife() {
 
 let tileDisplay = Kitronik_Zip_Tile.createZIPTileDisplay(1, 1, Kitronik_Zip_Tile.UBitLocations.Visible)
 tileDisplay.setBrightness(50)
+
+let displaySize = 8
+let calcSize = displaySize + 2
+let state: boolean[] = [];
+let deadstate: boolean[] = [];
+let priorstate: boolean[] = [];
+let blinkstate: boolean[] = [];
+setup()
 
 reset()
 show()
