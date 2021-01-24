@@ -82,7 +82,7 @@ input.onButtonPressed(Button.AB, function () {
         if (logostate == 2){
             showGlider();
             logostate -=1
-            genlimit = 130
+            genlimit = 133
         }
     }   
 	
