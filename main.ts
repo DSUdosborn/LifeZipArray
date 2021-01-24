@@ -57,12 +57,12 @@ input.onButtonPressed(Button.AB, function () {
         case 3: logostate += 1; genlimit = 45; blinkDelay = 200; showSpaceship(); break
         case 4: logostate += 1; genlimit = 25;  blinkDelay = 100; showLines(); break
         case 5: logostate += 1; genlimit = 133; blinkDelay = 50; showSoup(); break
-        default: logostate = 1; break;
+        default: logostate = 1; blinkDelay = 400; break;
     }
  	
     basic.pause(1000)
     for (let cycle = 1; cycle < 5; cycle++){
-        let delay = 200 / cycle
+        let delay = 400 / cycle
         for ( let gen = 1; gen < genlimit; gen ++){
             gameOfLife();
             show();
@@ -319,7 +319,7 @@ let blinkstate: boolean[] = [];
 // Housekeeping
 let shakeEnabled: boolean = false
 let logostate = 1
-let blinkDelay = 100
+let blinkDelay = 300
 
 setup()
 reset()
