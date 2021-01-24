@@ -115,7 +115,7 @@ input.onButtonPressed(Button.AB, function () {
                 logostate += 1 
             }  else {
                 showThree()
-                genlimit = 24
+                genlimit = 25
                 logostate = 1
             }
         }
