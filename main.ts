@@ -52,11 +52,11 @@ input.onButtonPressed(Button.AB, function () {
     showLogo()
     let genlimit = 0
     switch (logostate) {
-        case 1: logostate += 1; genlimit = 15; showBlinker(); break
-        case 2: logostate += 1; genlimit = 25; showGlider(); break
-        case 3: logostate += 1; genlimit = 45; showSpaceship(); break
-        case 4: logostate += 1; genlimit = 25; showLines(); break
-        case 5: logostate += 1; genlimit = 133; showSoup(); break
+        case 1: logostate += 1; genlimit = 18; blinkDelay = 400; showBlinker(); break
+        case 2: logostate += 1; genlimit = 25; blinkDelay = 250; showGlider(); break
+        case 3: logostate += 1; genlimit = 45; blinkDelay = 200; showSpaceship(); break
+        case 4: logostate += 1; genlimit = 25;  blinkDelay = 100; showLines(); break
+        case 5: logostate += 1; genlimit = 133; blinkDelay = 50; showSoup(); break
         default: logostate = 1; break;
     }
  	
@@ -100,8 +100,7 @@ function showLogo() {
     basic.pause(4000)  
 }
 
-function showSoup() {
-    blinkDelay = 50
+function showSoup() { 
     let cornerSoup: boolean[] = [false,false,false,false,false,false,false,false,false,false,
                     false,false,true,false,false,false,false,false,true,false,
                     false,true,false,false,false,false,false,false,false,false,
@@ -121,8 +120,7 @@ function showSoup() {
     show()  
 }
 
-function showGlider() {
-    blinkDelay = 250
+function showGlider() {    
     let glider: boolean[] = [false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
@@ -142,8 +140,7 @@ function showGlider() {
     show()
     basic.pause(3000)   
 }
-function showSpaceship() {
-    blinkDelay = 200
+function showSpaceship() {    
     let spaceShip: boolean[] = [false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
@@ -164,8 +161,7 @@ function showSpaceship() {
     show()
     basic.pause(3000)   
 }
-function showBlinker() {
-    blinkDelay = 200
+function showBlinker() {   
     let bigBlinker: boolean[] = [
         false,false,false,false,false,false,false,false,false,false,
         false,false,false,false,false,false,false,false,false,false,
@@ -188,7 +184,7 @@ function showBlinker() {
     basic.pause(3000)   
 }
 function showLines() {
-    blinkDelay = 100
+
     let shortLines: boolean[] = [false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
                     false,true,true,true,true,true,true,true,true,false,
