@@ -31,7 +31,19 @@ function setup() {
                     false,false,false,true,false,false,false,false,true,false,
                     false,false,true,true,false,false,false,true,true,false,
                     false,false,false,false,false,false,false,false,false,false                    
-                    ]                   
+                    ] 
+
+    logostateTwo = [false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,true,true,false,false,false,false,
+                    false,false,false,true,true,false,true,true,false,false,
+                    false,false,false,false,true,true,true,true,false,false,
+                    false,false,false,false,false,true,true,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false                    
+                    ]                                    
 }
 
 //get & set on any array
@@ -81,11 +93,15 @@ input.onButtonPressed(Button.AB, function () {
     }  else {
         if (logostate == 2){
             showGlider();
-            logostate -=1
+            logostate +=1
             genlimit = 133
+        }  else {
+            showSpaceship()
+            genlimit = 50
+            logostate = 1 
         }
-    }   
-	
+    }  
+    	
     basic.pause(1000)
     for (let cycle = 1; cycle < 6; cycle++){
         let delay = 400 / cycle
@@ -119,6 +135,14 @@ function showGlider() {
      for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
             setState(state, x, y, getState(logostateGlide,x,y));
+        }
+    } 
+    show()  
+}
+function showSpaceship() {
+     for (let x = 0; x < calcSize; x++) {
+        for (let y = 0; y < calcSize; y++) {
+            setState(state, x, y, getState(logostateTwo,x,y));
         }
     } 
     show()  
