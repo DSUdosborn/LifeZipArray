@@ -114,6 +114,7 @@ function showLogo() {
 }
 
 function showSoup() {
+    blinkDelay = 50
     let cornerSoup: boolean[] = [false,false,false,false,false,false,false,false,false,false,
                     false,false,true,false,false,false,false,false,true,false,
                     false,true,false,false,false,false,false,false,false,false,
@@ -134,6 +135,7 @@ function showSoup() {
 }
 
 function showGlider() {
+    blinkDelay = 250
     let glider: boolean[] = [false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
@@ -154,6 +156,7 @@ function showGlider() {
     basic.pause(3000)   
 }
 function showSpaceship() {
+    blinkDelay = 200
     let spaceShip: boolean[] = [false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
@@ -175,7 +178,8 @@ function showSpaceship() {
     basic.pause(3000)   
 }
 function showLines() {
-let shortLines: boolean[] = [false,false,false,false,false,false,false,false,false,false,
+    blinkDelay = 100
+    let shortLines: boolean[] = [false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
                     false,true,true,true,true,true,true,true,true,false,
                     false,false,false,false,false,false,false,false,false,false,
@@ -186,7 +190,7 @@ let shortLines: boolean[] = [false,false,false,false,false,false,false,false,fal
                     false,false,false,false,false,true,true,true,false,false,
                     false,false,false,false,false,false,false,false,false,false                    
                     ];
-     for (let x = 0; x < calcSize; x++) {
+    for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
             setState(state, x, y, getState(shortLines,x,y));
         }
@@ -198,7 +202,7 @@ let shortLines: boolean[] = [false,false,false,false,false,false,false,false,fal
 function show() {
     tileDisplay.clear()
     tileDisplay.show()
-    basic.pause(100)
+    basic.pause(blinkDelay)
     for (let x = 1; x <= displaySize; x++) {
         for (let y = 1; y <= displaySize; y++) {
             if (getState(state, x, y)){               
@@ -286,21 +290,31 @@ function gameOfLife() {
     state = result;
 }
 
+// Display setup related to Zip Tile LED Array 
+let tileDisplay = Kitronik_Zip_Tile.createZIPTileDisplay(1, 1, Kitronik_Zip_Tile.UBitLocations.Visible)
+tileDisplay.setBrightness(32)
+
+
+//Random color setup   array of enumerated colors, min color, max color  (0-7  excludes  Black/white)
 let ledColors = [ZipLedColors.Red,ZipLedColors.Orange,ZipLedColors.Yellow,ZipLedColors.Green,ZipLedColors.Blue,
                     ZipLedColors.Indigo,ZipLedColors.Violet,ZipLedColors.Purple,ZipLedColors.Black,ZipLedColors.White]
 let min = 0
 let max = 7
-let tileDisplay = Kitronik_Zip_Tile.createZIPTileDisplay(1, 1, Kitronik_Zip_Tile.UBitLocations.Visible)
-tileDisplay.setBrightness(32)
-let logostate = 1
+
+// GOL related parameters...
 let displaySize = 8
 let calcSize = displaySize + 2
+
 let state: boolean[] = [];
 let deadstate: boolean[] = [];
 let priorstate: boolean[] = [];
 let blinkstate: boolean[] = [];
 
+// Housekeeping
 let shakeEnabled: boolean = false
+let logostate = 1
+let blinkDelay = 100
+
 setup()
 reset()
 show()
