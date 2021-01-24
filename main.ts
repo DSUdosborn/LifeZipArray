@@ -10,7 +10,7 @@ function setup() {
     deadstate = state.slice()
     priorstate = state.slice()
     blinkstate = state.slice()
-    logostateOne = [false,false,false,false,false,false,false,false,false,false,
+    shortLines = [false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
                     false,true,true,true,true,true,true,true,true,false,
                     false,false,false,false,false,false,false,false,false,false,
@@ -21,7 +21,7 @@ function setup() {
                     false,false,false,false,false,true,true,true,false,false,
                     false,false,false,false,false,false,false,false,false,false                    
                     ]
-    logostateGlide = [false,false,false,false,false,false,false,false,false,false,
+    cornerSoup = [false,false,false,false,false,false,false,false,false,false,
                     false,false,true,false,false,false,false,false,true,false,
                     false,true,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
@@ -33,7 +33,7 @@ function setup() {
                     false,false,false,false,false,false,false,false,false,false                    
                     ] 
 
-    logostateTwo = [false,false,false,false,false,false,false,false,false,false,
+    spaceShip = [false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,true,true,false,false,false,false,
@@ -45,7 +45,7 @@ function setup() {
                     false,false,false,false,false,false,false,false,false,false                    
                     ]  
 
-    logostateThree = [false,false,false,false,false,false,false,false,false,false,
+    glider = [false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
                     false,false,false,true,false,true,false,false,false,false,
@@ -55,8 +55,20 @@ function setup() {
                     false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false                    
-                    ]  
-                                             
+                    ] 
+
+    logo = [false,false,false,false,false,false,false,false,false,false,
+            false,false,false,false,false,false,false,false,false,false,
+            false,false,true,true,false,false,true,true,false,false,
+            false,false,true,true,false,false,true,true,false,false,
+            false,false,false,false,true,true,true,true,false,false,
+            false,false,false,false,true,true,true,true,false,false,
+            false,false,false,false,true,true,false,false,false,false,
+            false,false,false,false,true,true,false,false,false,false,
+            false,false,false,false,false,false,false,false,false,false,
+            false,false,false,false,false,false,false,false,false,false
+                               
+                    ]                                              
 }
 
 //get & set on any array
@@ -98,24 +110,25 @@ input.onButtonPressed(Button.B, () => {
 })
 
 input.onButtonPressed(Button.AB, function () {
+    showLogo()
     let genlimit = 0
     if (logostate == 1){
-        showLogoOne();
+        showGlider();
         logostate += 1
         genlimit = 25
     }  else {
         if (logostate == 2){
-            showGlider();
+            showSpaceship();
             logostate +=1
-            genlimit = 133
+            genlimit = 30
         }  else {
             if (logostate == 3) {
-                showSpaceship()
-                genlimit = 30
+                showLines()
+                genlimit = 25
                 logostate += 1 
             }  else {
-                showThree()
-                genlimit = 25
+                showSoup()
+                genlimit = 133
                 logostate = 1
             }
         }
@@ -140,11 +153,20 @@ function reset() {
         }
     }
 }
-
-function showLogoOne() {
+function showLogo() {
      for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
-            setState(state, x, y, getState(logostateOne,x,y));
+            setState(state, x, y, getState(logo,x,y));
+        }
+    } 
+    show()
+    basic.pause(4000)  
+}
+
+function showSoup() {
+     for (let x = 0; x < calcSize; x++) {
+        for (let y = 0; y < calcSize; y++) {
+            setState(state, x, y, getState(cornerSoup,x,y));
         }
     } 
     show()  
@@ -153,27 +175,29 @@ function showLogoOne() {
 function showGlider() {
      for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
-            setState(state, x, y, getState(logostateGlide,x,y));
+            setState(state, x, y, getState(glider,x,y));
         }
     } 
-    show()  
+    show()
+    basic.pause(3000)   
 }
 function showSpaceship() {
      for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
-            setState(state, x, y, getState(logostateTwo,x,y));
+            setState(state, x, y, getState(spaceShip,x,y));
         }
     } 
-    show()  
+    show()
+    basic.pause(3000)   
 }
-function showThree() {
+function showLines() {
      for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
-            setState(state, x, y, getState(logostateThree,x,y));
+            setState(state, x, y, getState(shortLines,x,y));
         }
     } 
     show() 
-    basic.pause(3000) 
+
 }
 //Show the lifeChart based on the state
 function show() {
@@ -279,10 +303,11 @@ let state: boolean[] = [];
 let deadstate: boolean[] = [];
 let priorstate: boolean[] = [];
 let blinkstate: boolean[] = [];
-let logostateOne: boolean[] = [];
-let logostateTwo: boolean[] = [];
-let logostateThree: boolean[] = [];
-let logostateGlide: boolean[] = [];
+let glider: boolean[] = [];
+let spaceShip: boolean[] = [];
+let shortLines: boolean[] = [];
+let cornerSoup: boolean[] = [];
+let logo: boolean[] = [];
 let shakeEnabled: boolean = false
 setup()
 reset()
