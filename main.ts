@@ -51,28 +51,15 @@ input.onButtonPressed(Button.B, () => {
 input.onButtonPressed(Button.AB, function () {
     showLogo()
     let genlimit = 0
-    if (logostate == 1){
-        showGlider();
-        logostate += 1
-        genlimit = 25
-    }  else {
-        if (logostate == 2){
-            showSpaceship();
-            logostate +=1
-            genlimit = 30
-        }  else {
-            if (logostate == 3) {
-                showLines()
-                genlimit = 25
-                logostate += 1 
-            }  else {
-                showSoup()
-                genlimit = 133
-                logostate = 1
-            }
-        }
-    }  
-    	
+    switch (logostate) {
+        case 1: logostate += 1; genlimit = 15; showBlinker(); break
+        case 2: logostate += 1; genlimit = 25; showGlider(); break
+        case 3: logostate += 1; genlimit = 45; showSpaceship(); break
+        case 4: logostate += 1; genlimit = 25; showLines(); break
+        case 5: logostate += 1; genlimit = 133; showSoup(); break
+        default: logostate = 1; break;
+    }
+ 	
     basic.pause(1000)
     for (let cycle = 1; cycle < 5; cycle++){
         let delay = 200 / cycle
@@ -172,6 +159,29 @@ function showSpaceship() {
      for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
             setState(state, x, y, getState(spaceShip,x,y));
+        }
+    } 
+    show()
+    basic.pause(3000)   
+}
+function showBlinker() {
+    blinkDelay = 200
+    let bigBlinker: boolean[] = [
+        false,false,false,false,false,false,false,false,false,false,
+        false,false,false,false,false,false,false,false,false,false,
+        false,false,false,false,false,false,false,false,false,false,
+        false,false,false,true,false,false,true,false,false,false,
+        false,false,false,true,false,false,true,false,false,false,
+        false,false,false,true,false,false,true,false,false,false,
+        false,false,false,false,false,false,false,false,false,false,
+        false,false,false,false,false,false,false,false,false,false,
+        false,false,false,false,false,false,false,false,false,false,
+        false,false,false,false,false,false,false,false,false,false                    
+        ]  
+
+     for (let x = 0; x < calcSize; x++) {
+        for (let y = 0; y < calcSize; y++) {
+            setState(state, x, y, getState(bigBlinker,x,y));
         }
     } 
     show()
