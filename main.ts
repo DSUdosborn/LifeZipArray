@@ -10,7 +10,7 @@ function setup() {
     deadstate = state.slice()
     priorstate = state.slice()
     blinkstate = state.slice()
-    logostate = [false,false,false,false,false,false,false,false,false,false,
+    logostateOne = [false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
                     false,true,true,true,true,true,true,true,true,false,
                     false,false,false,false,false,false,false,false,false,false,
@@ -21,6 +21,17 @@ function setup() {
                     false,false,false,false,false,true,true,true,false,false,
                     false,false,false,false,false,false,false,false,false,false                    
                     ]
+    logostateGlide = [false,false,false,false,false,false,false,false,false,false,
+                    false,false,true,false,false,false,false,false,true,false,
+                    false,true,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,true,false,false,false,false,false,false,false,
+                    false,true,false,true,false,false,false,false,false,false,
+                    false,false,false,true,false,false,false,false,true,false,
+                    false,false,true,true,false,false,false,true,true,false,
+                    false,false,false,false,false,false,false,false,false,false                    
+                    ]                   
 }
 
 //get & set on any array
@@ -62,7 +73,16 @@ input.onButtonPressed(Button.B, () => {
 })
 
 input.onButtonPressed(Button.AB, function () {
-    showLogo()	
+    if (logostate == 1){
+        showLogoOne()
+        logostate += 1
+    }
+    if (logostate == 2){
+        showGlider()
+        logostate -=1
+    }
+    
+	
     basic.pause(1000)
     for (let cycle = 1; cycle < 6; cycle++){
         let delay = 600 / cycle
@@ -83,10 +103,19 @@ function reset() {
     }
 }
 
-function showLogo() {
+function showLogoOne() {
      for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
-            setState(state, x, y, getState(logostate,x,y));
+            setState(state, x, y, getState(logostateOne,x,y));
+        }
+    } 
+    show()  
+}
+
+function showGlider() {
+     for (let x = 0; x < calcSize; x++) {
+        for (let y = 0; y < calcSize; y++) {
+            setState(state, x, y, getState(logostateGlide,x,y));
         }
     } 
     show()  
@@ -95,6 +124,7 @@ function showLogo() {
 //Show the lifeChart based on the state
 function show() {
     tileDisplay.clear()
+    basic.pause(150)
     for (let x = 1; x <= displaySize; x++) {
         for (let y = 1; y <= displaySize; y++) {
             if (getState(state, x, y)){               
@@ -188,17 +218,17 @@ let min = 0
 let max = 7
 let tileDisplay = Kitronik_Zip_Tile.createZIPTileDisplay(1, 1, Kitronik_Zip_Tile.UBitLocations.Visible)
 tileDisplay.setBrightness(32)
-
+let logostate = 1
 let displaySize = 8
 let calcSize = displaySize + 2
 let state: boolean[] = [];
 let deadstate: boolean[] = [];
 let priorstate: boolean[] = [];
 let blinkstate: boolean[] = [];
-let logostate: boolean[] = [];
+let logostateOne: boolean[] = [];
+let logostateTwo: boolean[] = [];
+let logostateGlide: boolean[] = [];
 let shakeEnabled: boolean = false
 setup()
-
-
 reset()
 show()
