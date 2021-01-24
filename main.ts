@@ -115,7 +115,7 @@ input.onButtonPressed(Button.AB, function () {
                 logostate += 1 
             }  else {
                 showThree()
-                genlimit = 25
+                genlimit = 24
                 logostate = 1
             }
         }
@@ -172,7 +172,8 @@ function showThree() {
             setState(state, x, y, getState(logostateThree,x,y));
         }
     } 
-    show()  
+    show() 
+    basic.pause(3000) 
 }
 //Show the lifeChart based on the state
 function show() {
