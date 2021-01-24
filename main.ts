@@ -10,65 +10,7 @@ function setup() {
     deadstate = state.slice()
     priorstate = state.slice()
     blinkstate = state.slice()
-    shortLines = [false,false,false,false,false,false,false,false,false,false,
-                    false,false,false,false,false,false,false,false,false,false,
-                    false,true,true,true,true,true,true,true,true,false,
-                    false,false,false,false,false,false,false,false,false,false,
-                    false,true,true,true,true,true,true,true,true,false,
-                    false,false,false,false,false,false,false,false,false,false,
-                    false,false,false,false,true,true,true,false,false,false,
-                    false,false,false,false,false,false,false,false,false,false,
-                    false,false,false,false,false,true,true,true,false,false,
-                    false,false,false,false,false,false,false,false,false,false                    
-                    ]
-    cornerSoup = [false,false,false,false,false,false,false,false,false,false,
-                    false,false,true,false,false,false,false,false,true,false,
-                    false,true,false,false,false,false,false,false,false,false,
-                    false,false,false,false,false,false,false,false,false,false,
-                    false,false,false,false,false,false,false,false,false,false,
-                    false,false,true,false,false,false,false,false,false,false,
-                    false,true,false,true,false,false,false,false,false,false,
-                    false,false,false,true,false,false,false,false,true,false,
-                    false,false,true,true,false,false,false,true,true,false,
-                    false,false,false,false,false,false,false,false,false,false                    
-                    ] 
-
-    spaceShip = [false,false,false,false,false,false,false,false,false,false,
-                    false,false,false,false,false,false,false,false,false,false,
-                    false,false,false,false,false,false,false,false,false,false,
-                    false,false,false,false,true,true,false,false,false,false,
-                    false,false,false,true,true,false,true,true,false,false,
-                    false,false,false,false,true,true,true,true,false,false,
-                    false,false,false,false,false,true,true,false,false,false,
-                    false,false,false,false,false,false,false,false,false,false,
-                    false,false,false,false,false,false,false,false,false,false,
-                    false,false,false,false,false,false,false,false,false,false                    
-                    ]  
-
-    glider = [false,false,false,false,false,false,false,false,false,false,
-                    false,false,false,false,false,false,false,false,false,false,
-                    false,false,false,false,false,false,false,false,false,false,
-                    false,false,false,true,false,true,false,false,false,false,
-                    false,false,false,false,true,true,false,false,false,false,
-                    false,false,false,false,true,false,false,false,false,false,
-                    false,false,false,false,false,false,false,false,false,false,
-                    false,false,false,false,false,false,false,false,false,false,
-                    false,false,false,false,false,false,false,false,false,false,
-                    false,false,false,false,false,false,false,false,false,false                    
-                    ] 
-
-    logo = [false,false,false,false,false,false,false,false,false,false,
-            false,false,false,false,false,false,false,false,false,false,
-            false,false,true,true,false,false,true,true,false,false,
-            false,false,true,true,false,false,true,true,false,false,
-            false,false,false,false,true,true,true,true,false,false,
-            false,false,false,false,true,true,true,true,false,false,
-            false,false,false,false,true,true,false,false,false,false,
-            false,false,false,false,true,true,false,false,false,false,
-            false,false,false,false,false,false,false,false,false,false,
-            false,false,false,false,false,false,false,false,false,false
-                               
-                    ]                                              
+                                           
 }
 
 //get & set on any array
@@ -87,10 +29,7 @@ function isDead () {
 function isSame () {
     return state.every((val, index) => val === priorstate[index])
 }
-// compare array to blink
-function isLogo () {
-    return state.every((val, index) => val === blinkstate[index])
-}
+
 
 // Random integer for ledColor array offset 
 function randomInteger() {
@@ -154,6 +93,17 @@ function reset() {
     }
 }
 function showLogo() {
+    let logo: boolean[] = [false,false,false,false,false,false,false,false,false,false,
+            false,false,false,false,false,false,false,false,false,false,
+            false,false,true,true,false,false,true,true,false,false,
+            false,false,true,true,false,false,true,true,false,false,
+            false,false,false,false,true,true,true,true,false,false,
+            false,false,false,false,true,true,true,true,false,false,
+            false,false,false,false,true,true,false,false,false,false,
+            false,false,false,false,true,true,false,false,false,false,
+            false,false,false,false,false,false,false,false,false,false,
+            false,false,false,false,false,false,false,false,false,false            
+            ]  
      for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
             setState(state, x, y, getState(logo,x,y));
@@ -164,6 +114,17 @@ function showLogo() {
 }
 
 function showSoup() {
+    let cornerSoup: boolean[] = [false,false,false,false,false,false,false,false,false,false,
+                    false,false,true,false,false,false,false,false,true,false,
+                    false,true,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,true,false,false,false,false,false,false,false,
+                    false,true,false,true,false,false,false,false,false,false,
+                    false,false,false,true,false,false,false,false,true,false,
+                    false,false,true,true,false,false,false,true,true,false,
+                    false,false,false,false,false,false,false,false,false,false                    
+                    ] 
      for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
             setState(state, x, y, getState(cornerSoup,x,y));
@@ -173,6 +134,17 @@ function showSoup() {
 }
 
 function showGlider() {
+    let glider: boolean[] = [false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,true,false,true,false,false,false,false,
+                    false,false,false,false,true,true,false,false,false,false,
+                    false,false,false,false,true,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false                    
+                    ] 
      for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
             setState(state, x, y, getState(glider,x,y));
@@ -182,6 +154,18 @@ function showGlider() {
     basic.pause(3000)   
 }
 function showSpaceship() {
+    let spaceShip: boolean[] = [false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,true,true,false,false,false,false,
+                    false,false,false,true,true,false,true,true,false,false,
+                    false,false,false,false,true,true,true,true,false,false,
+                    false,false,false,false,false,true,true,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false                    
+                    ]  
+
      for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
             setState(state, x, y, getState(spaceShip,x,y));
@@ -191,6 +175,17 @@ function showSpaceship() {
     basic.pause(3000)   
 }
 function showLines() {
+let shortLines: boolean[] = [false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,true,true,true,true,true,true,true,true,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,true,true,true,true,true,true,true,true,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,true,true,true,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,true,true,true,false,false,
+                    false,false,false,false,false,false,false,false,false,false                    
+                    ];
      for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
             setState(state, x, y, getState(shortLines,x,y));
@@ -303,11 +298,7 @@ let state: boolean[] = [];
 let deadstate: boolean[] = [];
 let priorstate: boolean[] = [];
 let blinkstate: boolean[] = [];
-let glider: boolean[] = [];
-let spaceShip: boolean[] = [];
-let shortLines: boolean[] = [];
-let cornerSoup: boolean[] = [];
-let logo: boolean[] = [];
+
 let shakeEnabled: boolean = false
 setup()
 reset()
