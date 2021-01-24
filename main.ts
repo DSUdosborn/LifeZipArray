@@ -197,7 +197,7 @@ let shortLines: boolean[] = [false,false,false,false,false,false,false,false,fal
 //Show the lifeChart based on the state
 function show() {
     tileDisplay.clear()
-    basic.pause(150)
+    basic.pause(500)
     for (let x = 1; x <= displaySize; x++) {
         for (let y = 1; y <= displaySize; y++) {
             if (getState(state, x, y)){               
