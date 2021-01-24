@@ -111,19 +111,19 @@ input.onButtonPressed(Button.AB, function () {
         }  else {
             if (logostate == 3) {
                 showSpaceship()
-                genlimit = 50
+                genlimit = 30
                 logostate += 1 
             }  else {
                 showThree()
-                genlimit = 50
+                genlimit = 25
                 logostate = 1
             }
         }
     }  
     	
     basic.pause(1000)
-    for (let cycle = 1; cycle < 6; cycle++){
-        let delay = 400 / cycle
+    for (let cycle = 1; cycle < 5; cycle++){
+        let delay = 300 / cycle
         for ( let gen = 1; gen < genlimit; gen ++){
             gameOfLife();
             show();
