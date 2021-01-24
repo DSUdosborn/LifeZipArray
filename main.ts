@@ -75,7 +75,7 @@ input.onButtonPressed(Button.AB, function () {
     	
     basic.pause(1000)
     for (let cycle = 1; cycle < 5; cycle++){
-        let delay = 300 / cycle
+        let delay = 200 / cycle
         for ( let gen = 1; gen < genlimit; gen ++){
             gameOfLife();
             show();
@@ -198,7 +198,7 @@ let shortLines: boolean[] = [false,false,false,false,false,false,false,false,fal
 function show() {
     tileDisplay.clear()
     tileDisplay.show()
-    basic.pause(50)
+    basic.pause(100)
     for (let x = 1; x <= displaySize; x++) {
         for (let y = 1; y <= displaySize; y++) {
             if (getState(state, x, y)){               
