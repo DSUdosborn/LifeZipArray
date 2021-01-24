@@ -43,7 +43,20 @@ function setup() {
                     false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false                    
-                    ]                                    
+                    ]  
+
+    logostateThree = [false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,true,false,true,false,false,false,false,
+                    false,false,false,false,true,true,false,false,false,false,
+                    false,false,false,false,true,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false                    
+                    ]  
+                                             
 }
 
 //get & set on any array
@@ -96,9 +109,15 @@ input.onButtonPressed(Button.AB, function () {
             logostate +=1
             genlimit = 133
         }  else {
-            showSpaceship()
-            genlimit = 50
-            logostate = 1 
+            if (logostate == 3) {
+                showSpaceship()
+                genlimit = 50
+                logostate += 1 
+            }  else {
+                showThree()
+                genlimit = 50
+                logostate = 1
+            }
         }
     }  
     	
@@ -147,7 +166,14 @@ function showSpaceship() {
     } 
     show()  
 }
-
+function showThree() {
+     for (let x = 0; x < calcSize; x++) {
+        for (let y = 0; y < calcSize; y++) {
+            setState(state, x, y, getState(logostateThree,x,y));
+        }
+    } 
+    show()  
+}
 //Show the lifeChart based on the state
 function show() {
     tileDisplay.clear()
@@ -254,6 +280,7 @@ let priorstate: boolean[] = [];
 let blinkstate: boolean[] = [];
 let logostateOne: boolean[] = [];
 let logostateTwo: boolean[] = [];
+let logostateThree: boolean[] = [];
 let logostateGlide: boolean[] = [];
 let shakeEnabled: boolean = false
 setup()
