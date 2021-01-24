@@ -73,20 +73,23 @@ input.onButtonPressed(Button.B, () => {
 })
 
 input.onButtonPressed(Button.AB, function () {
+    let genlimit = 0
     if (logostate == 1){
-        showLogoOne()
+        showLogoOne();
         logostate += 1
-    }
-    if (logostate == 2){
-        showGlider()
-        logostate -=1
-    }
-    
+        genlimit = 25
+    }  else {
+        if (logostate == 2){
+            showGlider();
+            logostate -=1
+            genlimit = 130
+        }
+    }   
 	
     basic.pause(1000)
     for (let cycle = 1; cycle < 6; cycle++){
-        let delay = 600 / cycle
-        for ( let gen = 1; gen < 25; gen ++){
+        let delay = 400 / cycle
+        for ( let gen = 1; gen < genlimit; gen ++){
             gameOfLife();
             show();
             basic.pause(delay)
