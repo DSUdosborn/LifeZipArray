@@ -29,6 +29,7 @@ function randomInteger() {
 //Use button A for the next iteration of game of life
 input.onButtonPressed(Button.A, () => {
     gameOfLife();
+    show()
 })
 
 //Use button B for reseting to random initial seed state
@@ -306,7 +307,7 @@ function gameOfLife() {
     blinkstate = priorstate.slice()
     priorstate = state.slice()
     state = result;
-    show()
+
 }
 
 // Display setup related to Zip Tile LED Array 
