@@ -21,13 +21,6 @@ function setState(arr: boolean[], x: number, y: number, value: boolean): void {
     arr[x * calcSize + y] = value;
 }
 
-
-// Random integer for ledColor array offset 
-function randomInteger() {
-  return Math.floor(Math.random() * (colorIndexMax - colorIndexMin + 1)) + colorIndexMin;
-}
-
-
 //Use button A for the next iteration of game of life
 input.onButtonPressed(Button.A, () => {
     genlimit = 0
@@ -63,6 +56,11 @@ input.onButtonPressed(Button.AB, function () {
     }
 })
 
+
+// Random integer for ledColor array offset 
+function randomInteger() {
+  return Math.floor(Math.random() * (colorIndexMax - colorIndexMin + 1)) + colorIndexMin;
+}
 
 // Set the Zip Tile Leds  and display
 function show() {
@@ -163,7 +161,7 @@ function showSoup() {
                     ] 
      for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
-            currentdisplay[x * calcSize + y] =  getState(cornerSoup,x,y)
+            currentdisplay[x * calcSize + y] =  cornerSoup[x * calcSize + y]
         }
     } 
 
@@ -186,7 +184,7 @@ function showGlider() {
                     ] 
      for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
-            currentdisplay[x * calcSize + y] =  getState(glider,x,y)
+            currentdisplay[x * calcSize + y] =  glider[x * calcSize + y]
         }
     }
     blinkstate = priorstate.slice()
@@ -194,6 +192,7 @@ function showGlider() {
     show()
     basic.pause(3000)   
 }
+
 function showSpaceship() {    
     let spaceShip: boolean[] = [false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
@@ -209,7 +208,7 @@ function showSpaceship() {
 
      for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
-            currentdisplay[x * calcSize + y] =  getState(spaceShip,x,y)
+            currentdisplay[x * calcSize + y] =  spaceShip[x * calcSize + y]
         }
     }
     blinkstate = priorstate.slice()
@@ -217,6 +216,7 @@ function showSpaceship() {
     show()
     basic.pause(3000)   
 }
+
 function showBlinker() {   
     let bigBlinker: boolean[] = [
         false,false,false,false,false,false,false,false,false,false,
@@ -233,7 +233,7 @@ function showBlinker() {
 
      for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
-            currentdisplay[x * calcSize + y] =  getState(bigBlinker,x,y)
+            currentdisplay[x * calcSize + y] =  bigBlinker[x * calcSize + y]
         }
     }
     blinkstate = priorstate.slice()
@@ -241,6 +241,7 @@ function showBlinker() {
     show()
     basic.pause(3000)   
 }
+
 function showLines() {
 
     let shortLines: boolean[] = [false,false,false,false,false,false,false,false,false,false,
@@ -256,7 +257,7 @@ function showLines() {
                     ];
     for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
-            currentdisplay[x * calcSize + y] =  getState(shortLines,x,y)
+            currentdisplay[x * calcSize + y] =  shortLines[x * calcSize + y]
         }
     } 
     blinkstate = priorstate.slice()
@@ -274,8 +275,8 @@ function gameOfLife() {
 
 // load the edges into the current display array before counting neighbors
     for ( let colX = 0; colX < calcSize; colX++){
-        setState(currentdisplay,colX,0, getState(currentdisplay,colX,displaySize))
-        setState(currentdisplay,colX,calcSize-1, getState(currentdisplay,colX,1,))
+        currentdisplay[colX * calcSize + 0] = getState(currentdisplay,colX,displaySize)
+        currentdisplay[colX * calcSize + (calcSize-1)] = getState(currentdisplay,colX,1,)
     }
     for ( let rowY = 0; rowY < calcSize; rowY++){
         setState(currentdisplay,0,rowY, getState(currentdisplay,displaySize,rowY))
@@ -397,7 +398,6 @@ let priorstate: boolean[] = [];
 let blinkstate: boolean[] = [];
 
 // Housekeeping
-let shakeEnabled: boolean = false
 let logostate = 1
 let blinkDelay = 300
 
