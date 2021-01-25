@@ -41,11 +41,12 @@ input.onButtonPressed(Button.B, () => {
 
 input.onButtonPressed(Button.AB, function () {
     showLogo()
+    basic.pause(1000)
     let genlimit = 0
     switch (logostate) {
         case 1: logostate += 1; genlimit = 19; blinkDelay = 400; showBlinker(); break
         case 2: logostate += 1; genlimit = 25; blinkDelay = 250; showGlider(); break
-        case 3: logostate += 1; genlimit = 24; blinkDelay = 200; showSpaceship(); break
+        case 3: logostate += 1; genlimit = 21; blinkDelay = 200; showSpaceship(); break
         case 4: logostate += 1; genlimit = 25;  blinkDelay = 100; showLines(); break
         case 5: logostate += 1; genlimit = 133; blinkDelay = 50; showSoup(); break
         default: logostate = 1; blinkDelay = 300; break;
