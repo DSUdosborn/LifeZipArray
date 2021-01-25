@@ -82,7 +82,7 @@ function show() {
 function showRandom() {
 
     priorstate = deadstate.slice()
-
+    blinkDelay = 300
     for (let y = 0; y < calcSize; y++) {
         for (let x = 0; x < calcSize; x++) {
             currentdisplay[x * calcSize + y] = Math.randomBoolean()
@@ -304,14 +304,14 @@ loadEdges()
     }
 
     //blank the edges
-//     for ( let colX = 0; colX < calcSize; colX++){
-//        setState(result,colX,0, false)
-//        setState(result,colX,calcSize-1, false)
-//    }
-//    for ( let rowY = 0; rowY < calcSize; rowY++){
-//        setState(result,0,rowY, false)
-//        setState(result,calcSize -1,rowY, false)
-//    }     
+     for ( let colX = 0; colX < calcSize; colX++){
+        setState(result,colX,0, false)
+        setState(result,colX,calcSize-1, false)
+    }
+    for ( let rowY = 0; rowY < calcSize; rowY++){
+        setState(result,0,rowY, false)
+        setState(result,calcSize -1,rowY, false)
+    }     
 
     // check for auto reset conditions
     if (result.every((val, index) => val === deadstate[index])) {
