@@ -108,7 +108,7 @@ function showLogo() {
             currentdisplay[x * calcSize + y] = logo[x * calcSize + y]
         }
     } 
-
+    tileDisplay.showRainbow(1, 360)
     show()
     basic.pause(4000)  
 }
