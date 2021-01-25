@@ -21,19 +21,6 @@ function setState(arr: boolean[], x: number, y: number, value: boolean): void {
     arr[x * calcSize + y] = value;
 }
 
-// compare array to empty
-function isDead () {
-    return state.every((val, index) => val === deadstate[index])
-}
-// compare array to prior
-function isSame () {
-    return state.every((val, index) => val === priorstate[index])
-}
-// compare array to prior
-function isBlinker () {
-    return state.every((val, index) => val === blinkstate[index])
-}
-
 // Random integer for ledColor array offset 
 function randomInteger() {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -78,25 +65,6 @@ function reset() {
     for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
             setState(state, x, y, Math.randomBoolean());
-        }
-    }
-}
-
-function checkState() {
-    // do free reset if current screen = logo
-    if ( isBlinker() ){
-        showERR()
-    }  else {
-    // check for empty screen death
-        if (isDead()) {
-            showERR()
-        } else {
-        //  check for repeated screen death
-            if (isSame()) {
-                showERR()
-            } else {
-                show()
-            }
         }
     }
 }
@@ -320,11 +288,24 @@ function gameOfLife() {
             }
         }
     }
+
+    // check for auto reset conditions
+    if (result.every((val, index) => val === deadstate[index])) {
+        showERR()
+    }
+
+    if (result.every((val, index) => val === priorstate[index])) {
+        showERR()
+    }
+
+    if ( result.every((val, index) => val === blinkstate[index]) ){
+        showERR()
+    }  
+    
     //Update the state maps 
     blinkstate = priorstate.slice()
     priorstate = state.slice()
     state = result;
-    checkState();
 }
 
 // Display setup related to Zip Tile LED Array 
