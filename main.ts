@@ -42,7 +42,6 @@ function randomInteger() {
 //Use button A for the next iteration of game of life
 input.onButtonPressed(Button.A, () => {
     gameOfLife();
-    checkState();
 })
 
 //Use button B for reseting to random initial seed state
@@ -60,7 +59,7 @@ input.onButtonPressed(Button.AB, function () {
         case 3: logostate += 1; genlimit = 45; blinkDelay = 200; showSpaceship(); break
         case 4: logostate += 1; genlimit = 25;  blinkDelay = 100; showLines(); break
         case 5: logostate += 1; genlimit = 133; blinkDelay = 50; showSoup(); break
-        default: logostate = 1; blinkDelay = 400; break;
+        default: logostate = 1; blinkDelay = 300; break;
     }
  	
     basic.pause(1000)
@@ -322,9 +321,10 @@ function gameOfLife() {
         }
     }
     //Update the state maps 
-    priorstate = state.slice()
     blinkstate = priorstate.slice()
+    priorstate = state.slice()
     state = result;
+    checkState();
 }
 
 // Display setup related to Zip Tile LED Array 
