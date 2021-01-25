@@ -36,12 +36,13 @@ input.onButtonPressed(Button.A, () => {
 
 //Use button B for reseting to random initial seed state
 input.onButtonPressed(Button.B, () => {
+    genlimit = 0
     showRandom();
 })
 
 input.onButtonPressed(Button.AB, function () {
 
-    let genlimit = 0
+
     switch (logostate) {
         case 1: logostate += 1; genlimit = 1; blinkDelay = 400; showStable(); break
         case 2: logostate += 1; genlimit = 19; blinkDelay = 400; showBlinker(); break
@@ -391,6 +392,9 @@ let blinkstate: boolean[] = [];
 let shakeEnabled: boolean = false
 let logostate = 1
 let blinkDelay = 300
+
+//  break index for demos 
+let genlimit = 0
 
 setup()
 showLogo()
