@@ -29,7 +29,7 @@ function randomInteger() {
 //Use button A for the next iteration of game of life
 input.onButtonPressed(Button.A, () => {
     gameOfLife();
-    show()
+
 })
 
 //Use button B for reseting to random initial seed state
@@ -221,24 +221,21 @@ function show() {
     tileDisplay.show()
 }
 
-function loadEdges(){
-    // Set the outside edges to dead 
-    for ( let colX = 0; colX < calcSize; colX++){
-        setState(state,colX,0, getState(state,colX,displaySize))
-        setState(state,colX,calcSize-1, getState(state,colX,1,))
-    }
-    for ( let rowY = 0; rowY < calcSize; rowY++){
-        setState(state,0,rowY, getState(state,displaySize,rowY))
-        setState(state,calcSize -1,rowY, getState(state,1,rowY))
-    }
-}
 
 //Core function
 function gameOfLife() {
-    let result: boolean[] = [];
+    let result: boolean[] = deadstate.slice();
     let count = 0;
 
-    loadEdges()   
+    // Load edges regions to enable wrapping 
+    for ( let colX = 0; colX < calcSize; colX++){
+        setState(result,colX,0, getState(state,colX,displaySize))
+        setState(result,colX,calcSize-1, getState(state,colX,1,))
+    }
+    for ( let rowY = 0; rowY < calcSize; rowY++){
+        setState(result,0,rowY, getState(state,displaySize,rowY))
+        setState(result,calcSize -1,rowY, getState(state,1,rowY))
+    }  
 
     for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
@@ -309,7 +306,7 @@ function gameOfLife() {
     //Update the state maps 
     blinkstate = priorstate.slice()
     priorstate = state.slice()
-    state = result;
+    state = result.slice();
 
 }
 
