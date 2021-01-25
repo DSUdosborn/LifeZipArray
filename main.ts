@@ -13,52 +13,6 @@ function setup() {
                                            
 }
 
-//get & set on any array
-function getState(arr: boolean[], x: number, y: number): boolean {
-    return arr[x * calcSize + y];
-}
-function setState(arr: boolean[], x: number, y: number, value: boolean): void {
-    arr[x * calcSize + y] = value;
-}
-
-// Random integer for ledColor array offset 
-function randomInteger() {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-//Use button A for the next iteration of game of life
-input.onButtonPressed(Button.A, () => {
-    gameOfLife();
-
-})
-
-//Use button B for reseting to random initial seed state
-input.onButtonPressed(Button.B, () => {
-    reset();
-    show();
-})
-
-input.onButtonPressed(Button.AB, function () {
-    showLogo()
-    let genlimit = 0
-    switch (logostate) {
-        case 1: logostate += 1; genlimit = 18; blinkDelay = 400; showBlinker(); break
-        case 2: logostate += 1; genlimit = 25; blinkDelay = 250; showGlider(); break
-        case 3: logostate += 1; genlimit = 45; blinkDelay = 200; showSpaceship(); break
-        case 4: logostate += 1; genlimit = 25;  blinkDelay = 100; showLines(); break
-        case 5: logostate += 1; genlimit = 133; blinkDelay = 50; showSoup(); break
-        default: logostate = 1; blinkDelay = 300; break;
-    }
- 	
-    basic.pause(1000)
-    for (let cycle = 1; cycle < 5; cycle++){
-        let delay = 400 / cycle
-        for ( let gen = 1; gen < genlimit; gen ++){
-            gameOfLife();
-            basic.pause(delay)
-        }
-    }
-})
 
 //Generate random initial state.
 function reset() {
@@ -73,13 +27,73 @@ function reset() {
     }
 }
 
-function showERR(){
-    tileDisplay.showRainbow(1, 360)
-    tileDisplay.show()
-    basic.pause(1500)
-    reset()
-    show()
+
+//get & set on any array
+function getState(arr: boolean[], x: number, y: number): boolean {
+    return arr[x * calcSize + y];
 }
+function setState(arr: boolean[], x: number, y: number, value: boolean): void {
+    arr[x * calcSize + y] = value;
+}
+
+
+// Random integer for ledColor array offset 
+function randomInteger() {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+//Use button A for the next iteration of game of life
+input.onButtonPressed(Button.A, () => {
+    gameOfLife();
+
+})
+
+
+//Use button B for reseting to random initial seed state
+input.onButtonPressed(Button.B, () => {
+    reset();
+    show();
+})
+
+
+input.onButtonPressed(Button.AB, function () {
+    showLogo()
+    let genlimit = 0
+    switch (logostate) {
+        case 1: logostate += 1; genlimit = 18; blinkDelay = 400; showBlinker(); break
+        case 2: logostate += 1; genlimit = 25; blinkDelay = 250; showGlider(); break
+        case 3: logostate += 1; genlimit = 45; blinkDelay = 200; showSpaceship(); break
+        case 4: logostate += 1; genlimit = 25;  blinkDelay = 100; showLines(); break
+        case 5: logostate += 1; genlimit = 133; blinkDelay = 50; showSoup(); break
+        default: logostate = 1; blinkDelay = 300; break;
+    }
+    basic.pause(1000)
+    for (let cycle = 1; cycle < 5; cycle++){
+        let delay = 400 / cycle
+        for ( let gen = 1; gen < genlimit; gen ++){
+            gameOfLife();
+            basic.pause(delay)
+        }
+    }
+})
+
+
+// Set the Zip Tile Leds  and display
+function show() {
+    tileDisplay.clear()
+    tileDisplay.show()
+    basic.pause(blinkDelay)
+    for (let x = 1; x <= displaySize; x++) {
+        for (let y = 1; y <= displaySize; y++) {
+            if (getState(state, x, y)){               
+                tileDisplay.setMatrixColor(x-1, y-1, Kitronik_Zip_Tile.colors(ledColors[randomInteger()]))
+            }
+        }
+    }
+    tileDisplay.show()
+}
+
 
 function showLogo() {
     let logo: boolean[] = [false,false,false,false,false,false,false,false,false,false,
@@ -206,20 +220,8 @@ function showLines() {
     show() 
 
 }
-//Show the lifeChart based on the state
-function show() {
-    tileDisplay.clear()
-    tileDisplay.show()
-    basic.pause(blinkDelay)
-    for (let x = 1; x <= displaySize; x++) {
-        for (let y = 1; y <= displaySize; y++) {
-            if (getState(state, x, y)){               
-                tileDisplay.setMatrixColor(x-1, y-1, Kitronik_Zip_Tile.colors(ledColors[randomInteger()]))
-            }
-        }
-    }
-    tileDisplay.show()
-}
+
+
 
 
 //Core function
@@ -307,7 +309,19 @@ function gameOfLife() {
     blinkstate = priorstate.slice()
     priorstate = state.slice()
     state = result.slice();
+    show()
 
+}
+
+
+function showERR(){
+    tileDisplay.clear()
+    tileDisplay.show()
+    tileDisplay.showRainbow(1, 360)
+    tileDisplay.show()
+    basic.pause(1500)
+    reset()
+    show()
 }
 
 // Display setup related to Zip Tile LED Array 
