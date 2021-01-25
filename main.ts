@@ -89,6 +89,7 @@ function showRandom() {
     }
     blinkstate = priorstate.slice()
     priorstate = currentdisplay.slice()
+    show()
 }
 
 function showLogo() {
