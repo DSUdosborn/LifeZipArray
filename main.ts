@@ -43,7 +43,7 @@ input.onButtonPressed(Button.AB, function () {
     showLogo()
     let genlimit = 0
     switch (logostate) {
-        case 1: logostate += 1; genlimit = 18; blinkDelay = 400; showBlinker(); break
+        case 1: logostate += 1; genlimit = 19; blinkDelay = 400; showBlinker(); break
         case 2: logostate += 1; genlimit = 25; blinkDelay = 250; showGlider(); break
         case 3: logostate += 1; genlimit = 45; blinkDelay = 200; showSpaceship(); break
         case 4: logostate += 1; genlimit = 25;  blinkDelay = 100; showLines(); break
@@ -92,6 +92,9 @@ function showRandom() {
 }
 
 function showLogo() {
+    tileDisplay.showRainbow(1, 360)
+    tileDisplay.show()
+
     let logo: boolean[] = [false,false,false,false,false,false,false,false,false,false,
             false,false,false,false,false,false,false,false,false,false,
             false,false,true,true,false,false,true,true,false,false,
@@ -108,7 +111,6 @@ function showLogo() {
             currentdisplay[x * calcSize + y] = logo[x * calcSize + y]
         }
     } 
-    tileDisplay.showRainbow(1, 360)
     show()
     basic.pause(4000)  
 }
