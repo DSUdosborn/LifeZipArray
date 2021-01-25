@@ -153,7 +153,7 @@ function showStable() {
 
 function showSoup() { 
 
-    colorIndexMin = 5
+    colorIndexMin = 4
     colorIndexMax = 7
 
     let cornerSoup: boolean[] = [false,false,false,false,false,false,false,false,false,false,
