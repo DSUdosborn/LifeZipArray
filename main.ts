@@ -42,7 +42,7 @@ function randomInteger() {
 //Use button A for the next iteration of game of life
 input.onButtonPressed(Button.A, () => {
     gameOfLife();
-    show();
+    checkState();
 })
 
 //Use button B for reseting to random initial seed state
