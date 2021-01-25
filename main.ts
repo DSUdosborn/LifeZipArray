@@ -326,13 +326,13 @@ function gameOfLife() {
 
             //Count the live cells in the previous row
             if ((x - 1) >= 0) {
-                if (getState(currentdisplay, x - 1, y)) {
+                if (currentdisplay[ (x - 1) * calcSize +  y]) {
                     count++;
                 }
-                if ((y + 1 < calcSize) && getState(currentdisplay, x - 1, y + 1)) {
+                if ((y + 1 < calcSize) && currentdisplay[ (x - 1) * calcSize +  (y + 1)]) {
                     count++;
                 }
-                if ((y - 1 >= 0) && getState(currentdisplay, x - 1, y - 1)) {
+                if ((y - 1 >= 0) && currentdisplay[ (x - 1) * calcSize +  (y - 1)]) {
                     count++;
                 }
             }
