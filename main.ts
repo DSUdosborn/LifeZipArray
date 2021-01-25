@@ -258,8 +258,15 @@ function showLines() {
     show() 
 
 }
-function loadEdges(){
-    // Set the outside edges to dead 
+
+
+// Count Neighbors and build next generation 
+
+function gameOfLife() {
+    let result: boolean[] = deadstate.slice();
+    let count = 0;
+
+// load the edges into the current display array before counting neighbors
     for ( let colX = 0; colX < calcSize; colX++){
         setState(currentdisplay,colX,0, getState(currentdisplay,colX,displaySize))
         setState(currentdisplay,colX,calcSize-1, getState(currentdisplay,colX,1,))
@@ -268,13 +275,7 @@ function loadEdges(){
         setState(currentdisplay,0,rowY, getState(currentdisplay,displaySize,rowY))
         setState(currentdisplay,calcSize -1,rowY, getState(currentdisplay,1,rowY))
     }
-}
-//Core function
-function gameOfLife() {
-    let result: boolean[] = deadstate.slice();
-    let count = 0;
 
-loadEdges() 
 
     for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
@@ -329,7 +330,7 @@ loadEdges()
         }
     }
 
-    //blank the edges
+//blank the edges so they dont impact error checks
      for ( let colX = 0; colX < calcSize; colX++){
         setState(result,colX,0, false)
         setState(result,colX,calcSize-1, false)
@@ -339,7 +340,7 @@ loadEdges()
         setState(result,calcSize -1,rowY, false)
     }     
 
-    // check for auto reset conditions
+// check for auto reset conditions
     if (result.every((val, index) => val === deadstate[index])) {
         showERR()
     } else {
@@ -377,7 +378,7 @@ tileDisplay.setBrightness(32)
 //Random color setup   array of enumerated colors, min color, max color  (0-7  excludes  Black/white)
 let ledColors = [ZipLedColors.Red,ZipLedColors.Orange,ZipLedColors.Yellow,ZipLedColors.Green,ZipLedColors.Blue,
                     ZipLedColors.Indigo,ZipLedColors.Violet,ZipLedColors.Purple,ZipLedColors.Black,ZipLedColors.White]
-let colorIndexMin = 0
+let colorIndexMin = 3
 let colorIndexMax = 7
 
 // GOL related parameters...
