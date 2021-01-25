@@ -62,6 +62,10 @@ input.onButtonPressed(Button.AB, function () {
 
 //Generate random initial state.
 function reset() {
+
+    priorstate = deadstate.slice()
+    blinkstate = deadstate.slice()
+
     for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
             setState(state, x, y, Math.randomBoolean());
