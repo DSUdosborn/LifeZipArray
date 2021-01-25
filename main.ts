@@ -30,6 +30,7 @@ function randomInteger() {
 
 //Use button A for the next iteration of game of life
 input.onButtonPressed(Button.A, () => {
+    genlimit = 0
     gameOfLife();
 })
 
