@@ -338,10 +338,10 @@ function gameOfLife() {
             }
 
             //Count the live cells in the current row excluding the current position.
-            if ((y - 1 >= 0) && getState(currentdisplay, x, y - 1)) {
+            if ((y - 1 >= 0) && currentdisplay[ x * calcSize +  (y - 1)]) {
                 count++;
             }
-            if ((y + 1 < calcSize) && getState(currentdisplay, x, y + 1)) {
+            if ((y + 1 < calcSize) && currentdisplay[ x * calcSize +  (y + 1)]) {
                 count++;
             }
 
