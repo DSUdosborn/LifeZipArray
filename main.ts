@@ -83,8 +83,8 @@ function showRandom() {
 
     priorstate = deadstate.slice()
     blinkDelay = 300
-    for (let y = 0; y < calcSize; y++) {
-        for (let x = 0; x < calcSize; x++) {
+    for (let y = 1; y <= displaySize; y++) {
+        for (let x = 1; x <= displaySize; x++) {
             currentdisplay[x * calcSize + y] = Math.randomBoolean()
         }
     }
