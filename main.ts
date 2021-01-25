@@ -100,6 +100,9 @@ function showLogo() {
     tileDisplay.showRainbow(1, 360)
     tileDisplay.show()
 
+    colorIndexMin = 4
+    colorIndexMax = 4
+
     let logo: boolean[] = [false,false,false,false,false,false,false,false,false,false,
             false,false,false,false,false,false,false,false,false,false,
             false,false,true,true,false,false,true,true,false,false,
@@ -117,6 +120,9 @@ function showLogo() {
         }
     } 
     show()
+
+    colorIndexMin = 3
+    colorIndexMax = 7
 
 }
 
