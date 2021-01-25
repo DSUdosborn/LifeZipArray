@@ -278,8 +278,8 @@ function gameOfLife() {
         currentdisplay[colX * calcSize + (calcSize-1)] = currentdisplay[colX * calcSize + 1]
     }
     for ( let rowY = 0; rowY < calcSize; rowY++){
-        setState(currentdisplay,0,rowY, getState(currentdisplay,displaySize,rowY))
-        setState(currentdisplay,calcSize -1,rowY, getState(currentdisplay,1,rowY))
+        currentdisplay[0 * calcSize + rowY] = currentdisplay[displaySize * calcSize + rowY]
+        currentdisplay[(calcSize -1) * calcSize + rowY] = currentdisplay[1 * calcSize + rowY]
     }
 
 
