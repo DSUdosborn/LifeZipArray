@@ -35,8 +35,7 @@ input.onButtonPressed(Button.B, () => {
 })
 
 input.onButtonPressed(Button.AB, function () {
-
-
+    genlimit = 0
     switch (logostate) {
         case 1: logostate += 1; genlimit = 1; blinkDelay = 400; showStable(); break
         case 2: logostate += 1; genlimit = 19; blinkDelay = 400; showBlinker(); break
@@ -275,8 +274,8 @@ function gameOfLife() {
 
 // load the edges into the current display array before counting neighbors
     for ( let colX = 0; colX < calcSize; colX++){
-        currentdisplay[colX * calcSize + 0] = getState(currentdisplay,colX,displaySize)
-        currentdisplay[colX * calcSize + (calcSize-1)] = getState(currentdisplay,colX,1,)
+        currentdisplay[colX * calcSize + 0] = currentdisplay[colX * calcSize + displaySize]
+        currentdisplay[colX * calcSize + (calcSize-1)] = currentdisplay[colX * calcSize + 1]
     }
     for ( let rowY = 0; rowY < calcSize; rowY++){
         setState(currentdisplay,0,rowY, getState(currentdisplay,displaySize,rowY))
