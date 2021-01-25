@@ -29,7 +29,10 @@ function isDead () {
 function isSame () {
     return state.every((val, index) => val === priorstate[index])
 }
-
+// compare array to prior
+function isBlinker () {
+    return state.every((val, index) => val === blinkstate[index])
+}
 
 // Random integer for ledColor array offset 
 function randomInteger() {
