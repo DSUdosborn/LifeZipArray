@@ -24,7 +24,7 @@ function setState(arr: boolean[], x: number, y: number, value: boolean): void {
 
 // Random integer for ledColor array offset 
 function randomInteger() {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (colorIndexMax - colorIndexMin + 1)) + colorIndexMin;
 }
 
 
@@ -44,11 +44,12 @@ input.onButtonPressed(Button.AB, function () {
     basic.pause(1000)
     let genlimit = 0
     switch (logostate) {
-        case 1: logostate += 1; genlimit = 19; blinkDelay = 400; showBlinker(); break
-        case 2: logostate += 1; genlimit = 25; blinkDelay = 250; showGlider(); break
-        case 3: logostate += 1; genlimit = 21; blinkDelay = 200; showSpaceship(); break
-        case 4: logostate += 1; genlimit = 25;  blinkDelay = 100; showLines(); break
-        case 5: logostate += 1; genlimit = 133; blinkDelay = 50; showSoup(); break
+        case 1: logostate += 1; genlimit = 19; blinkDelay = 400; showStable(); break
+        case 2: logostate += 1; genlimit = 19; blinkDelay = 400; showBlinker(); break
+        case 3: logostate += 1; genlimit = 25; blinkDelay = 250; showGlider(); break
+        case 4: logostate += 1; genlimit = 21; blinkDelay = 200; showSpaceship(); break
+        case 5: logostate += 1; genlimit = 25;  blinkDelay = 100; showLines(); break
+        case 6: logostate += 1; genlimit = 133; blinkDelay = 50; showSoup(); break
         default: logostate = 1; blinkDelay = 300; break;
     }
     basic.pause(1000)
@@ -81,6 +82,7 @@ function show() {
 //Generate random initial state.
 function showRandom() {
 
+    currentdisplay = deadstate.slice()
     priorstate = deadstate.slice()
     blinkDelay = 300
     for (let y = 1; y <= displaySize; y++) {
@@ -115,6 +117,29 @@ function showLogo() {
     } 
     show()
 
+}
+
+function showStable() {    
+    let stable: boolean[] = [false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,true,true,false,false,false,false,
+                    false,false,false,false,true,true,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false,
+                    false,false,false,false,false,false,false,false,false,false                    
+                    ] 
+     for (let x = 0; x < calcSize; x++) {
+        for (let y = 0; y < calcSize; y++) {
+            currentdisplay[x * calcSize + y] =  stable[x * calcSize + y]
+        }
+    }
+    blinkstate = priorstate.slice()
+    priorstate = currentdisplay.slice() 
+    show()
+    basic.pause(3000)   
 }
 
 function showSoup() { 
@@ -351,8 +376,8 @@ tileDisplay.setBrightness(32)
 //Random color setup   array of enumerated colors, min color, max color  (0-7  excludes  Black/white)
 let ledColors = [ZipLedColors.Red,ZipLedColors.Orange,ZipLedColors.Yellow,ZipLedColors.Green,ZipLedColors.Blue,
                     ZipLedColors.Indigo,ZipLedColors.Violet,ZipLedColors.Purple,ZipLedColors.Black,ZipLedColors.White]
-let min = 0
-let max = 7
+let colorIndexMin = 0
+let colorIndexMax = 7
 
 // GOL related parameters...
 let displaySize = 8
