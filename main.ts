@@ -228,21 +228,23 @@ function showLines() {
     show() 
 
 }
-
+function loadEdges(){
+    // Set the outside edges to dead 
+    for ( let colX = 0; colX < calcSize; colX++){
+        setState(currentdisplay,colX,0, getState(currentdisplay,colX,displaySize))
+        setState(currentdisplay,colX,calcSize-1, getState(currentdisplay,colX,1,))
+    }
+    for ( let rowY = 0; rowY < calcSize; rowY++){
+        setState(currentdisplay,0,rowY, getState(currentdisplay,displaySize,rowY))
+        setState(currentdisplay,calcSize -1,rowY, getState(currentdisplay,1,rowY))
+    }
+}
 //Core function
 function gameOfLife() {
     let result: boolean[] = deadstate.slice();
     let count = 0;
 
-    // Load edges regions to enable wrapping 
-    for ( let colX = 0; colX < calcSize; colX++){
-        setState(result,colX,0, getState(currentdisplay,colX,displaySize))
-        setState(result,colX,calcSize-1, getState(currentdisplay,colX,1,))
-    }
-    for ( let rowY = 0; rowY < calcSize; rowY++){
-        setState(result,0,rowY, getState(currentdisplay,displaySize,rowY))
-        setState(result,calcSize -1,rowY, getState(currentdisplay,1,rowY))
-    }  
+loadEdges() 
 
     for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
