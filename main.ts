@@ -1,12 +1,12 @@
 function setup() {
-//State holds the information about pixel is live or dead
-//false means dead, true means live.
+// currentdisplay is the map of LED   ON/OFF  status
+//   use the calculation size to preload the external edges
     for (let y= 0; y < displaySize + 1; y++){
         for (let x= 0; x< displaySize + 1; x++){
             currentdisplay.push(false)
         }
     }
-//  replicate for "death compares"
+//  replicate for autoreset compares
     deadstate = currentdisplay.slice()
     priorstate = currentdisplay.slice()
     blinkstate = currentdisplay.slice()
@@ -90,6 +90,10 @@ function showRandom() {
     }
     blinkstate = priorstate.slice()
     priorstate = currentdisplay.slice()
+
+    colorIndexMin = 0
+    colorIndexMax = 7
+
     show()
 }
 
@@ -118,12 +122,13 @@ function showLogo() {
     } 
     show()
 
-    colorIndexMin = 3
-    colorIndexMax = 7
-
 }
 
-function showStable() {    
+function showStable() {  
+
+    colorIndexMin = 9
+    colorIndexMax = 9
+
     let stable: boolean[] = [false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
@@ -147,6 +152,10 @@ function showStable() {
 }
 
 function showSoup() { 
+
+    colorIndexMin = 5
+    colorIndexMax = 7
+
     let cornerSoup: boolean[] = [false,false,false,false,false,false,false,false,false,false,
                     false,false,true,false,false,false,false,false,true,false,
                     false,true,false,false,false,false,false,false,false,false,
@@ -169,7 +178,11 @@ function showSoup() {
     show()  
 }
 
-function showGlider() {    
+function showGlider() {  
+
+    colorIndexMin = 4
+    colorIndexMax = 4
+
     let glider: boolean[] = [false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
@@ -192,7 +205,11 @@ function showGlider() {
     basic.pause(3000)   
 }
 
-function showSpaceship() {    
+function showSpaceship() { 
+
+    colorIndexMin = 0
+    colorIndexMax = 3
+
     let spaceShip: boolean[] = [false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
@@ -216,7 +233,11 @@ function showSpaceship() {
     basic.pause(3000)   
 }
 
-function showBlinker() {   
+function showBlinker() {  
+
+    colorIndexMin = 0
+    colorIndexMax = 0
+
     let bigBlinker: boolean[] = [
         false,false,false,false,false,false,false,false,false,false,
         false,false,false,false,false,false,false,false,false,false,
@@ -242,6 +263,9 @@ function showBlinker() {
 }
 
 function showLines() {
+
+    colorIndexMin = 4
+    colorIndexMax = 7
 
     let shortLines: boolean[] = [false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,
