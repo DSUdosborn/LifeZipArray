@@ -305,22 +305,21 @@ function gameOfLife() {
     // check for auto reset conditions
     if (result.every((val, index) => val === deadstate[index])) {
         showERR()
+    } else {
+        if (result.every((val, index) => val === priorstate[index])) {
+            showERR()
+        }  else {
+            if ( result.every((val, index) => val === blinkstate[index]) ){
+            showERR();
+            } else { 
+                //Update the state maps 
+                blinkstate = priorstate.slice()
+                priorstate = state.slice()
+                state = result.slice();
+                show()
+            }
+        }
     }
-
-    if (result.every((val, index) => val === priorstate[index])) {
-        showERR()
-    }
-
-    if ( result.every((val, index) => val === blinkstate[index]) ){
-        showERR()
-    }  
-    
-    //Update the state maps 
-    blinkstate = priorstate.slice()
-    priorstate = state.slice()
-    state = result.slice();
-    show()
-
 }
 
 
