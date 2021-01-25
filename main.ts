@@ -40,8 +40,7 @@ input.onButtonPressed(Button.B, () => {
 })
 
 input.onButtonPressed(Button.AB, function () {
-    showLogo()
-    basic.pause(1000)
+
     let genlimit = 0
     switch (logostate) {
         case 1: logostate += 1; genlimit = 19; blinkDelay = 400; showStable(); break
@@ -50,7 +49,7 @@ input.onButtonPressed(Button.AB, function () {
         case 4: logostate += 1; genlimit = 21; blinkDelay = 200; showSpaceship(); break
         case 5: logostate += 1; genlimit = 25;  blinkDelay = 100; showLines(); break
         case 6: logostate += 1; genlimit = 133; blinkDelay = 50; showSoup(); break
-        default: logostate = 1; blinkDelay = 300; break;
+        default: logostate = 1; blinkDelay = 300; showLogo(); break;
     }
     basic.pause(1000)
     for (let cycle = 1; cycle < 5; cycle++){
