@@ -82,6 +82,34 @@ function reset() {
         }
     }
 }
+
+function checkState() {
+    // do free reset if current screen = logo
+    if ( isBlinker() ){
+        showERR()
+    }  else {
+    // check for empty screen death
+        if (isDead()) {
+            showERR()
+        } else {
+        //  check for repeated screen death
+            if (isSame()) {
+                showERR()
+            } else {
+                show()
+            }
+        }
+    }
+}
+
+function showERR(){
+    tileDisplay.showRainbow(1, 360)
+    tileDisplay.show()
+    basic.pause(1500)
+    reset()
+    show()
+}
+
 function showLogo() {
     let logo: boolean[] = [false,false,false,false,false,false,false,false,false,false,
             false,false,false,false,false,false,false,false,false,false,
