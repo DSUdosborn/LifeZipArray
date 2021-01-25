@@ -43,7 +43,7 @@ input.onButtonPressed(Button.AB, function () {
 
     let genlimit = 0
     switch (logostate) {
-        case 1: logostate += 1; genlimit = 19; blinkDelay = 400; showStable(); break
+        case 1: logostate += 1; genlimit = 1; blinkDelay = 400; showStable(); break
         case 2: logostate += 1; genlimit = 19; blinkDelay = 400; showBlinker(); break
         case 3: logostate += 1; genlimit = 25; blinkDelay = 250; showGlider(); break
         case 4: logostate += 1; genlimit = 21; blinkDelay = 200; showSpaceship(); break
@@ -54,7 +54,7 @@ input.onButtonPressed(Button.AB, function () {
     basic.pause(1000)
     for (let cycle = 1; cycle < 5; cycle++){
         let delay = 400 / cycle
-        for ( let gen = 1; gen < genlimit; gen ++){
+        for ( let gen = 1; gen < genlimit; gen++){
             gameOfLife();
             basic.pause(delay)
         }
