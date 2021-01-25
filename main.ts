@@ -66,9 +66,9 @@ function show() {
     tileDisplay.clear()
     tileDisplay.show()
     basic.pause(blinkDelay)
-    for (let x = 1; x <= displaySize; x++) {
-        for (let y = 1; y <= displaySize; y++) {
-            if (currentdisplay[x * calcSize + y]){               
+    for (let y = 1; y <= displaySize; y++) {
+        for (let x = 1; x <= displaySize; x++) {
+            if (currentdisplay[y * calcSize + x]){               
                 tileDisplay.setMatrixColor(x-1, y-1, Kitronik_Zip_Tile.colors(ledColors[randomInteger()]))
             }
         }
