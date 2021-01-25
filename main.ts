@@ -1,32 +1,17 @@
 function setup() {
 //State holds the information about pixel is live or dead
 //false means dead, true means live.
-    for (let x= 0; x < displaySize + 1; x++){
-        for (let y= 0; y< displaySize + 1; y++){
-            state.push(false)
+    for (let y= 0; y < displaySize + 1; y++){
+        for (let x= 0; x< displaySize + 1; x++){
+            currentdisplay.push(false)
         }
     }
 //  replicate for "death compares"
-    deadstate = state.slice()
-    priorstate = state.slice()
-    blinkstate = state.slice()
-                                           
+    deadstate = currentdisplay.slice()
+    priorstate = currentdisplay.slice()
+    blinkstate = currentdisplay.slice()
+                                          
 }
-
-
-//Generate random initial state.
-function reset() {
-
-    priorstate = deadstate.slice()
-    blinkstate = deadstate.slice()
-
-    for (let x = 0; x < calcSize; x++) {
-        for (let y = 0; y < calcSize; y++) {
-            setState(state, x, y, Math.randomBoolean());
-        }
-    }
-}
-
 
 //get & set on any array
 function getState(arr: boolean[], x: number, y: number): boolean {
@@ -46,16 +31,13 @@ function randomInteger() {
 //Use button A for the next iteration of game of life
 input.onButtonPressed(Button.A, () => {
     gameOfLife();
-
 })
 
 
 //Use button B for reseting to random initial seed state
 input.onButtonPressed(Button.B, () => {
-    reset();
-    show();
+    showRandom();
 })
-
 
 input.onButtonPressed(Button.AB, function () {
     showLogo()
@@ -86,7 +68,7 @@ function show() {
     basic.pause(blinkDelay)
     for (let x = 1; x <= displaySize; x++) {
         for (let y = 1; y <= displaySize; y++) {
-            if (getState(state, x, y)){               
+            if (currentdisplay[x * calcSize + y]){               
                 tileDisplay.setMatrixColor(x-1, y-1, Kitronik_Zip_Tile.colors(ledColors[randomInteger()]))
             }
         }
@@ -94,6 +76,20 @@ function show() {
     tileDisplay.show()
 }
 
+
+//Generate random initial state.
+function showRandom() {
+
+    priorstate = deadstate.slice()
+
+    for (let y = 0; y < calcSize; y++) {
+        for (let x = 0; x < calcSize; x++) {
+            currentdisplay[x * calcSize + y] = Math.randomBoolean()
+        }
+    }
+    blinkstate = priorstate.slice()
+    priorstate = currentdisplay.slice()
+}
 
 function showLogo() {
     let logo: boolean[] = [false,false,false,false,false,false,false,false,false,false,
@@ -107,11 +103,12 @@ function showLogo() {
             false,false,false,false,false,false,false,false,false,false,
             false,false,false,false,false,false,false,false,false,false            
             ]  
-     for (let x = 0; x < calcSize; x++) {
-        for (let y = 0; y < calcSize; y++) {
-            setState(state, x, y, getState(logo,x,y));
+     for (let y = 0; y < calcSize; y++) {
+        for (let x = 0; x < calcSize; x++) {
+            currentdisplay[x * calcSize + y] = logo[x * calcSize + y]
         }
     } 
+
     show()
     basic.pause(4000)  
 }
@@ -130,9 +127,12 @@ function showSoup() {
                     ] 
      for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
-            setState(state, x, y, getState(cornerSoup,x,y));
+            currentdisplay[x * calcSize + y] =  getState(cornerSoup,x,y)
         }
     } 
+
+    blinkstate = priorstate.slice()
+    priorstate = currentdisplay.slice()
     show()  
 }
 
@@ -150,9 +150,11 @@ function showGlider() {
                     ] 
      for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
-            setState(state, x, y, getState(glider,x,y));
+            currentdisplay[x * calcSize + y] =  getState(glider,x,y)
         }
-    } 
+    }
+    blinkstate = priorstate.slice()
+    priorstate = currentdisplay.slice() 
     show()
     basic.pause(3000)   
 }
@@ -171,9 +173,11 @@ function showSpaceship() {
 
      for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
-            setState(state, x, y, getState(spaceShip,x,y));
+            currentdisplay[x * calcSize + y] =  getState(spaceShip,x,y)
         }
-    } 
+    }
+    blinkstate = priorstate.slice()
+    priorstate = currentdisplay.slice() 
     show()
     basic.pause(3000)   
 }
@@ -193,9 +197,11 @@ function showBlinker() {
 
      for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
-            setState(state, x, y, getState(bigBlinker,x,y));
+            currentdisplay[x * calcSize + y] =  getState(bigBlinker,x,y)
         }
-    } 
+    }
+    blinkstate = priorstate.slice()
+    priorstate = currentdisplay.slice() 
     show()
     basic.pause(3000)   
 }
@@ -214,15 +220,14 @@ function showLines() {
                     ];
     for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
-            setState(state, x, y, getState(shortLines,x,y));
+            currentdisplay[x * calcSize + y] =  getState(shortLines,x,y)
         }
     } 
+    blinkstate = priorstate.slice()
+    priorstate = currentdisplay.slice()
     show() 
 
 }
-
-
-
 
 //Core function
 function gameOfLife() {
@@ -231,12 +236,12 @@ function gameOfLife() {
 
     // Load edges regions to enable wrapping 
     for ( let colX = 0; colX < calcSize; colX++){
-        setState(result,colX,0, getState(state,colX,displaySize))
-        setState(result,colX,calcSize-1, getState(state,colX,1,))
+        setState(result,colX,0, getState(currentdisplay,colX,displaySize))
+        setState(result,colX,calcSize-1, getState(currentdisplay,colX,1,))
     }
     for ( let rowY = 0; rowY < calcSize; rowY++){
-        setState(result,0,rowY, getState(state,displaySize,rowY))
-        setState(result,calcSize -1,rowY, getState(state,1,rowY))
+        setState(result,0,rowY, getState(currentdisplay,displaySize,rowY))
+        setState(result,calcSize -1,rowY, getState(currentdisplay,1,rowY))
     }  
 
     for (let x = 0; x < calcSize; x++) {
@@ -245,35 +250,35 @@ function gameOfLife() {
 
             //Count the live cells in the next row
             if ((x + 1) < calcSize) {
-                if (getState(state, x + 1, y)) {
+                if (getState(currentdisplay, x + 1, y)) {
                     count++;
                 }
-                if ((y + 1 < calcSize) && getState(state, x + 1, y + 1)) {
+                if ((y + 1 < calcSize) && getState(currentdisplay, x + 1, y + 1)) {
                     count++;
                 }
-                if ((y - 1 >= 0) && getState(state, x + 1, y - 1)) {
+                if ((y - 1 >= 0) && getState(currentdisplay, x + 1, y - 1)) {
                     count++;
                 }
             }
 
             //Count the live cells in the previous row
             if ((x - 1) >= 0) {
-                if (getState(state, x - 1, y)) {
+                if (getState(currentdisplay, x - 1, y)) {
                     count++;
                 }
-                if ((y + 1 < calcSize) && getState(state, x - 1, y + 1)) {
+                if ((y + 1 < calcSize) && getState(currentdisplay, x - 1, y + 1)) {
                     count++;
                 }
-                if ((y - 1 >= 0) && getState(state, x - 1, y - 1)) {
+                if ((y - 1 >= 0) && getState(currentdisplay, x - 1, y - 1)) {
                     count++;
                 }
             }
 
             //Count the live cells in the current row excluding the current position.
-            if ((y - 1 >= 0) && getState(state, x, y - 1)) {
+            if ((y - 1 >= 0) && getState(currentdisplay, x, y - 1)) {
                 count++;
             }
-            if ((y + 1 < calcSize) && getState(state, x, y + 1)) {
+            if ((y + 1 < calcSize) && getState(currentdisplay, x, y + 1)) {
                 count++;
             }
 
@@ -285,7 +290,7 @@ function gameOfLife() {
             switch (count) {
                 case 0: setState(result, x, y, false); break;
                 case 1: setState(result, x, y, false); break;
-                case 2: setState(result, x, y, getState(state, x, y)); break;
+                case 2: setState(result, x, y, getState(currentdisplay, x, y)); break;
                 case 3: setState(result, x, y, true); break;
                 default: setState(result, x, y, false); break;
             }
@@ -314,8 +319,8 @@ function gameOfLife() {
             } else { 
                 //Update the state maps 
                 blinkstate = priorstate.slice()
-                priorstate = state.slice()
-                state = result.slice();
+                priorstate = currentdisplay.slice()
+                currentdisplay = result.slice();
                 show()
             }
         }
@@ -329,7 +334,7 @@ function showERR(){
     tileDisplay.showRainbow(1, 360)
     tileDisplay.show()
     basic.pause(1500)
-    reset()
+    showRandom()
     show()
 }
 
@@ -348,7 +353,7 @@ let max = 7
 let displaySize = 8
 let calcSize = displaySize + 2
 
-let state: boolean[] = [];
+let currentdisplay: boolean[] = [];
 let deadstate: boolean[] = [];
 let priorstate: boolean[] = [];
 let blinkstate: boolean[] = [];
@@ -359,5 +364,5 @@ let logostate = 1
 let blinkDelay = 300
 
 setup()
-reset()
+showLogo()
 show()
