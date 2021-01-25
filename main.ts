@@ -112,7 +112,7 @@ function showLogo() {
         }
     } 
     show()
-    basic.pause(4000)  
+
 }
 
 function showSoup() { 
@@ -339,7 +339,6 @@ function showERR(){
     tileDisplay.show()
     basic.pause(1500)
     showRandom()
-    show()
 }
 
 // Display setup related to Zip Tile LED Array 
@@ -369,4 +368,3 @@ let blinkDelay = 300
 
 setup()
 showLogo()
-show()
