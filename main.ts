@@ -306,6 +306,7 @@ function gameOfLife() {
     blinkstate = priorstate.slice()
     priorstate = state.slice()
     state = result;
+    show()
 }
 
 // Display setup related to Zip Tile LED Array 
