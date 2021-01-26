@@ -23,14 +23,15 @@ function convertSides() {
     for (let j = 0; j < dim; j++) { 
         tileDisplay.setMatrixColor(0, j, Kitronik_Zip_Tile.colors(ZipLedColors.White))  
         if (currentdisplay[8+j]) {
-
             answer += value
         }
         value = value / 2
+        basic.pause(200)
+        tileDisplay.show()
     }
     let sideOne=answer
     basic.showNumber(answer)
-    tileDisplay.show()
+
     answer = 0
     value = startValue
     for (let j = 0; j < dim; j++) {
