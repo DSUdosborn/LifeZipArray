@@ -14,6 +14,7 @@ function setup() {
 }
 
 function convertSides() {
+    tileDisplay.clear()
     let answer = 0
     let value = 0
     let dim = 8
