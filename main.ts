@@ -296,6 +296,9 @@ function gameOfLife() {
     let result: boolean[] = deadstate.slice();
     let count = 0;
 
+
+
+ 
 // load the edges into the current display array before counting neighbors
     for ( let colX = 0; colX < calcSize; colX++){
         currentdisplay[colX * calcSize + 0] = currentdisplay[colX * calcSize + displaySize]
@@ -384,6 +387,7 @@ function gameOfLife() {
                 blinkstate = priorstate.slice()
                 priorstate = currentdisplay.slice()
                 currentdisplay = result.slice();
+                shareEdges()
                 show()
             }
         }
@@ -398,6 +402,25 @@ function showERR(){
     tileDisplay.show()
     basic.pause(1500)
     showRandom()
+}
+
+function shareEdges(){
+
+    let sharedEdge1: boolean[] = [];
+    let sharedEdge2: boolean[] = [];
+    let sharedEdge3: boolean[] = [];
+    let sharedEdge4: boolean[] = [];
+
+     for ( let colX = 0; colX < calcSize; colX++){
+                 tileDisplay.setMatrixColor(colX * calcSize , 0, Kitronik_Zip_Tile.colors(ledColors[randomInteger()]))
+        currentdisplay[colX * calcSize + 0] = currentdisplay[colX * calcSize + displaySize]
+        currentdisplay[colX * calcSize + (calcSize-1)] = currentdisplay[colX * calcSize + 1]
+    }
+        tileDisplay.show()
+    for ( let rowY = 0; rowY < calcSize; rowY++){
+        currentdisplay[0 * calcSize + rowY] = currentdisplay[displaySize * calcSize + rowY]
+        currentdisplay[(calcSize -1) * calcSize + rowY] = currentdisplay[1 * calcSize + rowY]
+    }   
 }
 
 // Display setup related to Zip Tile LED Array 
@@ -429,3 +452,4 @@ let genlimit = 0
 
 setup()
 showLogo()
+shareEdges()
