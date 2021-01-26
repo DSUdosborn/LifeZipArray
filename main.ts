@@ -13,6 +13,32 @@ function setup() {
                                           
 }
 
+function convertSides() {
+    let answer = 0
+    let value = 0
+    let dim = 8
+    let startValue = 128
+    value = startValue
+    for (let j = 0; j < dim; j++) {   
+        if (currentdisplay[8+j]) {
+            answer += value
+        }
+        value = value / 2
+    }
+    let sideOne=answer
+    basic.showNumber(answer)
+    answer = 0
+    value = startValue
+    for (let j = 0; j < dim; j++) {
+        if (currentdisplay[56 + j]) {
+            answer += value
+        }
+        value = value / 2
+    }
+    let sideTwo=answer
+    basic.showNumber(answer)
+}
+
 //get & set on any array
 function getState(arr: boolean[], x: number, y: number): boolean {
     return arr[x * calcSize + y];
@@ -74,6 +100,7 @@ function show() {
         }
     }
     tileDisplay.show()
+
 }
 
 
@@ -93,7 +120,8 @@ function showRandom() {
 
     colorIndexMin = 0
     colorIndexMax = 7
-
+     convertSides()
+     basic.pause(3000)
     show()
 }
 
