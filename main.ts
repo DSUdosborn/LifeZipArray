@@ -20,9 +20,10 @@ function convertSides() {
     let dim = 8
     let startValue = 128
     value = startValue
-    for (let j = 0; j < dim; j++) {   
+    for (let j = 0; j < dim; j++) { 
+        tileDisplay.setMatrixColor(0, j, Kitronik_Zip_Tile.colors(ZipLedColors.White))  
         if (currentdisplay[8+j]) {
-            tileDisplay.setMatrixColor(0, j, Kitronik_Zip_Tile.colors(ZipLedColors.White))
+
             answer += value
         }
         value = value / 2
