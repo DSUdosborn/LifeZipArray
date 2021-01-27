@@ -358,14 +358,14 @@ function gameOfLife() {
     }
 
 //blank the edges so they dont impact error checks
-//     for ( let colX = 0; colX < calcSize; colX++){
-//        setState(result,colX,0, false)
-//        setState(result,colX,calcSize-1, false)
-//    }
-//    for ( let rowY = 0; rowY < calcSize; rowY++){
-//        setState(result,0,rowY, false)
-//        setState(result,calcSize -1,rowY, false)
-//    }     
+     for ( let colX = 0; colX < calcSize; colX++){
+        setState(result,colX,0, false)
+        setState(result,colX,calcSize-1, false)
+    }
+    for ( let rowY = 0; rowY < calcSize; rowY++){
+        setState(result,0,rowY, false)
+        setState(result,calcSize -1,rowY, false)
+    }     
 
 // check for auto reset conditions
     if (result.every((val, index) => val === deadstate[index])) {
