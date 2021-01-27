@@ -299,10 +299,27 @@ function gameOfLife() {
     let result: boolean[] = deadstate.slice();
     let count = 0;
 
-    sharedEdge1 = 0;
-    sharedEdge2 = 0;
-    sharedEdge3 = 0;
-    sharedEdge4 = 0;
+    myEdge1 = 0;
+    myEdge2 = 0;
+    myEdge3 = 0;
+    myEdge4 = 0;
+    
+// load the edges into extended array before counting neighbors
+                for ( let colX = 0; colX < calcSize; colX++){
+                    currentdisplay[colX * calcSize + 0] = currentdisplay[colX * calcSize + displaySize]
+
+
+                    currentdisplay[colX * calcSize + (calcSize-1)] = currentdisplay[colX * calcSize + 1]
+
+
+                }
+                for ( let rowY = 0; rowY < calcSize; rowY++){
+                    currentdisplay[0 * calcSize + rowY] = currentdisplay[displaySize * calcSize + rowY]
+
+
+                    currentdisplay[(calcSize -1) * calcSize + rowY] = currentdisplay[1 * calcSize + rowY]
+
+                }
 
     for (let x = 0; x < calcSize; x++) {
         for (let y = 0; y < calcSize; y++) {
@@ -380,32 +397,32 @@ function gameOfLife() {
 
 // load the edges into extended array before counting neighbors
                 for ( let colX = 0; colX < calcSize; colX++){
-                    currentdisplay[colX * calcSize + 0] = currentdisplay[colX * calcSize + displaySize]
-                    if (currentdisplay[colX * calcSize + 0]){
-                        sharedEdge1 += binaryFactors[colX]
+
+                    if ( currentdisplay[colX * calcSize + displaySize]){
+                        myEdge2 += binaryFactors[colX]
 //                        tileDisplay.setMatrixColor(colX * calcSize , 0, Kitronik_Zip_Tile.colors(ledColors[randomInteger()]))
 //                        tileDisplay.show()
                     }
 
-                    currentdisplay[colX * calcSize + (calcSize-1)] = currentdisplay[colX * calcSize + 1]
-                    if (currentdisplay[colX * calcSize + (calcSize-1)]){
-                        sharedEdge2 += binaryFactors[colX]
+
+                    if ( currentdisplay[colX * calcSize + 1]){
+                        myEdge1 += binaryFactors[colX]
 //                        tileDisplay.setMatrixColor(colX * calcSize , 0, Kitronik_Zip_Tile.colors(ledColors[randomInteger()]))
 //                        tileDisplay.show()
                     }
 
                 }
                 for ( let rowY = 0; rowY < calcSize; rowY++){
-                    currentdisplay[0 * calcSize + rowY] = currentdisplay[displaySize * calcSize + rowY]
-                    if (currentdisplay[0 * calcSize + rowY]){
-                        sharedEdge3 += binaryFactors[rowY]
+
+                    if (currentdisplay[displaySize * calcSize + rowY]){
+                        myEdge4 += binaryFactors[rowY]
 //                        tileDisplay.setMatrixColor(colX * calcSize , 0, Kitronik_Zip_Tile.colors(ledColors[randomInteger()]))
 //                        tileDisplay.show()
                     }
 
-                    currentdisplay[(calcSize -1) * calcSize + rowY] = currentdisplay[1 * calcSize + rowY]
-                    if (currentdisplay[(calcSize -1) * calcSize + rowY]){
-                        sharedEdge4 += binaryFactors[rowY]
+
+                    if (currentdisplay[1 * calcSize + rowY]){
+                        myEdge3 += binaryFactors[rowY]
 //                        tileDisplay.setMatrixColor(colX * calcSize , 0, Kitronik_Zip_Tile.colors(ledColors[randomInteger()]))
 //                        tileDisplay.show()
                     }
@@ -456,10 +473,15 @@ let priorstate: boolean[] = [];
 let blinkstate: boolean[] = [];
 
 
-let sharedEdge1: number = 0;
-let sharedEdge2: number = 0;
-let sharedEdge3: number = 0;
-let sharedEdge4: number = 0;
+let myEdge1: number = 0;
+let myEdge2: number = 0;
+let myEdge3: number = 0;
+let myEdge4: number = 0;
+
+let edge1Buffer: boolean[] = []
+let edge2Buffer: boolean[] = []
+let edge3Buffer: boolean[] = []
+let edge4Buffer: boolean[] = []
 
 let binaryFactors: number[] = [ 128, 64, 32, 16, 8, 4, 2, 1]
 
