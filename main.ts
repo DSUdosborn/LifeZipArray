@@ -13,36 +13,7 @@ function setup() {
                                           
 }
 
-function convertSides() {
-    tileDisplay.clear()
-    let answer = 0
-    let value = 0
-    let dim = 8
-    let startValue = 128
-    value = startValue
-    for (let j = 0; j <= dim; j++) { 
-        tileDisplay.setMatrixColor(0, j, Kitronik_Zip_Tile.colors(ZipLedColors.White))  
-        if (getState(currentdisplay,1,j+1)) {
-            answer += value
-        }
-        value = value / 2
-        basic.pause(200)
-        tileDisplay.show()
-    }
-    let sideOne=answer
-    basic.showNumber(answer)
 
-    answer = 0
-    value = startValue
-    for (let j = 0; j < dim; j++) {
-        if (currentdisplay[56 + j]) {
-            answer += value
-        }
-        value = value / 2
-    }
-    let sideTwo=answer
-    basic.showNumber(answer)
-}
 
 //get & set on any array
 function getState(arr: boolean[], x: number, y: number): boolean {
@@ -125,8 +96,7 @@ function showRandom() {
 
     colorIndexMin = 0
     colorIndexMax = 7
-     convertSides()
-     basic.pause(3000)
+
     show()
 }
 
