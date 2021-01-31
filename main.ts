@@ -395,43 +395,28 @@ function gameOfLife() {
             showERR();
             } else { 
 
-// load the edges into extended array before counting neighbors
-                for ( let colX = 0; colX < calcSize; colX++){
-
-                    if ( currentdisplay[colX * calcSize + displaySize]){
-                        myEdge2 += binaryFactors[colX]
-//                        tileDisplay.setMatrixColor(colX * calcSize , 0, Kitronik_Zip_Tile.colors(ledColors[randomInteger()]))
-//                        tileDisplay.show()
-                    }
-
-
-                    if ( currentdisplay[colX * calcSize + 1]){
-                        myEdge1 += binaryFactors[colX]
-//                        tileDisplay.setMatrixColor(colX * calcSize , 0, Kitronik_Zip_Tile.colors(ledColors[randomInteger()]))
-//                        tileDisplay.show()
-                    }
-
-                }
-                for ( let rowY = 0; rowY < calcSize; rowY++){
-
-                    if (currentdisplay[displaySize * calcSize + rowY]){
-                        myEdge4 += binaryFactors[rowY]
-//                        tileDisplay.setMatrixColor(colX * calcSize , 0, Kitronik_Zip_Tile.colors(ledColors[randomInteger()]))
-//                        tileDisplay.show()
-                    }
-
-
-                    if (currentdisplay[1 * calcSize + rowY]){
-                        myEdge3 += binaryFactors[rowY]
-//                        tileDisplay.setMatrixColor(colX * calcSize , 0, Kitronik_Zip_Tile.colors(ledColors[randomInteger()]))
-//                        tileDisplay.show()
-                    }
-                }
-
-                //Update the state maps 
+//Update the auto-restart maps 
                 blinkstate = priorstate.slice()
                 priorstate = currentdisplay.slice()
                 currentdisplay = result.slice();
+
+// load the edges into extended array before counting neighbors
+                for ( let colX = 0; colX < calcSize; colX++){
+                    if ( currentdisplay[colX * calcSize + displaySize]){
+                        myEdge2 += binaryFactors[colX]
+                    }
+                    if ( currentdisplay[colX * calcSize + 1]){
+                        myEdge1 += binaryFactors[colX]
+                    }
+                }
+                for ( let rowY = 0; rowY < calcSize; rowY++){
+                    if (currentdisplay[displaySize * calcSize + rowY]){
+                        myEdge4 += binaryFactors[rowY]
+                    }
+                    if (currentdisplay[1 * calcSize + rowY]){
+                        myEdge3 += binaryFactors[rowY]
+                    }
+                }
 
                 show()
 
