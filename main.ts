@@ -51,7 +51,6 @@ input.onButtonPressed(Button.AB, function () {
         case 2: logostate += 1; genlimit = 19; blinkDelay = 400; showBlinker(); break
         case 3: logostate += 1; genlimit = 25; blinkDelay = 250; showGlider(); break
         case 4: logostate += 1; genlimit = 21; blinkDelay = 200; showSpaceship(); break
-        case 5: logostate += 1; genlimit = 25;  blinkDelay = 100; showLines(); break
         case 6: logostate += 1; genlimit = 133; blinkDelay = 50; showSoup(); break
         default: logostate = 1; blinkDelay = 300; showLogo(); break;
     }
@@ -273,33 +272,6 @@ function showBlinker() {
     basic.pause(3000)   
 }
 
-function showLines() {
-
-    colorIndexMin = 4
-    colorIndexMax = 7
-
-    let shortLines: boolean[] = [false,false,false,false,false,false,false,false,false,false,
-                    false,false,false,false,false,false,false,false,false,false,
-                    false,true,true,true,true,true,true,true,true,false,
-                    false,false,false,false,false,false,false,false,false,false,
-                    false,true,true,true,true,true,true,true,true,false,
-                    false,false,false,false,false,false,false,false,false,false,
-                    false,false,false,false,true,true,true,false,false,false,
-                    false,false,false,false,false,false,false,false,false,false,
-                    false,false,false,false,false,true,true,true,false,false,
-                    false,false,false,false,false,false,false,false,false,false                    
-                    ];
-    for (let x = 0; x < calcSize; x++) {
-        for (let y = 0; y < calcSize; y++) {
-            currentdisplay[x * calcSize + y] =  shortLines[x * calcSize + y]
-        }
-    } 
-    blinkstate = priorstate.slice()
-    priorstate = currentdisplay.slice()
-    show() 
-
-}
-
 
 // Count Neighbors and build next generation 
 
@@ -487,7 +459,7 @@ let genlimit = 0
 
 // administrivia for Radio
 radio.setTransmitPower(1)
-radio.setGroup(42)
+radio.setGroup(4)
 
 setup()
 showLogo()
