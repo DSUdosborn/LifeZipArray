@@ -458,7 +458,7 @@ let blinkDelay = 300
 let genlimit = 0
 
 // administrivia for Radio
-radio.setTransmitPower(3)
+radio.setTransmitPower(5)
 radio.setGroup(4)
 
 setup()
