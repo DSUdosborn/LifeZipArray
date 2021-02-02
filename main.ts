@@ -34,6 +34,7 @@ radio.onReceivedString(function (receivedString: string) {
 input.onButtonPressed(Button.A, () => {
     genlimit = 0
     gameOfLife();
+    radio.sendString("go")
 })
 
 
