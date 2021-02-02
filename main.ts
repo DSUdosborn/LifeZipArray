@@ -23,6 +23,13 @@ function setState(arr: boolean[], x: number, y: number, value: boolean): void {
     arr[x * calcSize + y] = value;
 }
 
+// trigger a call to gameOfLife if we get a "go" string
+radio.onReceivedString(function (receivedString: string) {
+    if ( receivedString == "go") {
+        gameOfLife()
+    }
+})
+
 //Use button A for the next iteration of game of life
 input.onButtonPressed(Button.A, () => {
     genlimit = 0
