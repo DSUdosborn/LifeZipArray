@@ -484,6 +484,10 @@ let blinkDelay = 300
 //  break index for demos 
 let genlimit = 0
 
+// administrivia for Radio
+radio.setTransmitPower(1)
+radio.setGroup(42)
+
 setup()
 showLogo()
 
