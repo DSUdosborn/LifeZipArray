@@ -13,38 +13,7 @@ function setup() {
                                           
 }
 
-
-
-//get & set on any array
-function getState(arr: boolean[], x: number, y: number): boolean {
-    return arr[x * calcSize + y];
-}
-function setState(arr: boolean[], x: number, y: number, value: boolean): void {
-    arr[x * calcSize + y] = value;
-}
-
-// trigger a call to gameOfLife if we get a "go" string
-radio.onReceivedString(function (receivedString: string) {
-    if ( receivedString == "go") {
-        gameOfLife()
-    }
-})
-
-//Use button A for the next iteration of game of life
-input.onButtonPressed(Button.A, () => {
-    genlimit = 0
-    gameOfLife();
-    radio.sendString("go")
-})
-
-
-//Use button B for reseting to random initial seed state
-input.onButtonPressed(Button.B, () => {
-    genlimit = 0
-    showRandom();
-})
-
-input.onButtonPressed(Button.AB, function () {
+function nextDemo(){
     genlimit = 0
     switch (logostate) {
         case 1: logostate += 1; genlimit = 1; blinkDelay = 400; showStable(); break
@@ -62,6 +31,48 @@ input.onButtonPressed(Button.AB, function () {
             basic.pause(delay)
         }
     }
+}
+
+//get & set on any array
+function getState(arr: boolean[], x: number, y: number): boolean {
+    return arr[x * calcSize + y];
+}
+function setState(arr: boolean[], x: number, y: number, value: boolean): void {
+    arr[x * calcSize + y] = value;
+}
+
+// trigger a call to gameOfLife if we get a "go" string
+radio.onReceivedString(function (receivedString: string) {
+    if ( receivedString == "go") {
+        gameOfLife()
+    }
+    if ( receivedString == "demo") {
+        nextDemo()
+    }
+    if ( receivedString == "random") {
+        genlimit = 0
+        showRandom()
+    }
+})
+
+//Use button A for the next iteration of game of life
+input.onButtonPressed(Button.A, () => {
+    genlimit = 0
+    gameOfLife();
+    radio.sendString("go")
+})
+
+
+//Use button B for reseting to random initial seed state
+input.onButtonPressed(Button.B, () => {
+    genlimit = 0
+    radio.sendString("random")
+    showRandom();
+})
+
+input.onButtonPressed(Button.AB, function () {
+    nextDemo()
+    radio.sendString("demo")
 })
 
 
